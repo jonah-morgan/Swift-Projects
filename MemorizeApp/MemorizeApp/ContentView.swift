@@ -7,123 +7,80 @@
 
 import SwiftUI
 
-let cardColor: Color = .red; let facesColor: Color = .yellow
-let animalsColor: Color = .orange; let foodColor: Color = .indigo
-let initialCardAmount = 0; let initialThemeType = 0
-
-
-func randomizeThis(_ array: [String]) -> [String]{
-    array.shuffled()
-}
-
-
-
 struct memorizeView: View {
     
-    @State var usingArray : [String] = ["1"]
-    @State var themeType = initialThemeType
-    @State var cardCount = initialCardAmount
-    
-    let themeArray = [["🥰", "😌","😍","🧐","😌","😍","🧐","😌","😍",
-                        "🧐","😌","😍","🧐","😌","😍","🧐"],
-                      
-                     ["🐵","🪲","🦊","🐵","🪲","🦊","🐵","🪲","🦊",
-                        "🐵","🪲","🦊","🐵","🪲","🦊",],
-                      
-                     ["🌶","🥝","🍆","🌶","🥝","🍆","🌶","🥝","🍆",
-                        "🌶","🥝","🍆","🌶","🥝","🍆","🌶","🥝","🍆"]]
-    
-    var themeDict = [ "faces": (0, "face.smiling.fill", facesColor),
-                      "animals": (1,"heart.fill", animalsColor),
-                      "food": (2,"fork.knife", foodColor) ]
-    
-    
-    var removeButton: some View{
-        Button(action: {
-            if cardCount > 0{
-                cardCount -= 1
-            }
-        }, label: {Image(systemName: "minus.circle")})
-    }
-    
-    
-    var appendButton: some View{
-        Button(action: {
-            if cardCount < themeArray[themeType].count{
-                cardCount += 1
-            }
-        }, label: {Image(systemName: "plus.circle")})
-    }
-    
-    
-    func themeButton(_ type: String) -> some View{
-        var thisButton: some View{
-            Button(action: {themeType = themeDict[type]!.0
-                usingArray = randomizeThis(themeArray[themeType])
-                cardCount = usingArray.count
-            }, label: {
-                VStack{
-                    Image(systemName: themeDict[type]!.1)
-                    Text(type.capitalized).font(.callout)
-                }.foregroundColor(themeDict[type]!.2)
-            })
-        }
-        return thisButton
-    }
-    
-    
+    @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
         VStack{
-            Text("Memorize!").foregroundColor(.yellow)
-            
+            Text("Memorize some \(EmojiMemoryGame.thisThemesName)!")
+                .foregroundColor(.yellow)
+                .padding(.pi)
+                .font(.title)
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
-                    ForEach(0..<cardCount, id: \.self){ index in
-                        CardView(content: usingArray[index]).aspectRatio(2/3, contentMode: .fit)
+                    ForEach(viewModel.cards){ card in
+                        CardView(card: card)
+                            .aspectRatio(2/3, contentMode: .fit)
+                            .onTapGesture{
+                                viewModel.choose(card)
+                            }
                     }
                 }
-                .foregroundColor(cardColor)
             }
             .padding(.horizontal)
-            
             HStack{
-                removeButton
-                appendButton
+                newGameButton
                 Spacer()
-                themeButton("faces")
-                themeButton("animals")
-                themeButton("food")
+                Text("Score: \(viewModel.score)")
+                    .font(.title2)
+                    .foregroundColor(.blue)
             }
-            .padding(.vertical)
         }
         .padding(.horizontal)
         .font(.largeTitle)
     }
+    
+    var newGameButton: some View {
+        Button(action: {
+            viewModel.newGame()
+        }, label: {
+            ZStack{
+                RoundedRectangle(cornerRadius: 20).aspectRatio(3/1, contentMode: .fit)
+                    .foregroundColor(.mint)
+                    .frame(width: 150, height: 70, alignment: .center)
+                Text("New Game")
+                    .foregroundColor(.blue)
+                    .font(.title3)
+                    .padding()
+            }
+            
+        })
+    }
+    
 }
  
 
 struct CardView: View{
     
+    let card:MemoryGame<String>.Card
     let myRect = RoundedRectangle(cornerRadius: 20)
-    var content: String
-    @State var isFaceUp: Bool = false
     
     var body: some View{
         ZStack{
-            if isFaceUp{
+            if card.isFaceUp{
                 myRect.fill().foregroundColor(.white)
                 myRect.strokeBorder(lineWidth: 5)
-                Text(content).font(.largeTitle)
-            }
-            else{
+                Text(card.content).font(.largeTitle)
+            } else if card.isMatched{
+                myRect.opacity(0)
+            } else{
                 myRect.fill()
                 Text(" ").font(.largeTitle)
             }
-        }
-        .onTapGesture{isFaceUp = !isFaceUp}
-        .font(.largeTitle)
+        }.foregroundColor(card.color)
     }
+    
 }
   
 
@@ -146,12 +103,15 @@ struct CardView: View{
 
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        memorizeView()
-            .preferredColorScheme(.light)
-            .previewInterfaceOrientation(.portrait)
+        let game = EmojiMemoryGame()
         
-        memorizeView()
+        memorizeView(viewModel: game)
+            .preferredColorScheme(.light)
+            .previewInterfaceOrientation(.landscapeLeft)
+        
+        memorizeView(viewModel: game)
             .preferredColorScheme(.dark)
         
     }
