@@ -25,9 +25,9 @@ class EmojiMemoryGame: ObservableObject{
     
     static let emojiThemeArray = [
         theme(name: "Faces", color: .green, numberOfPairs: 20, emojis:
-                ["🥰","😌","😍","🧐","😌"]),
+                ["🥰","😌","😍","🧐","🥸"]),
         theme(name: "Animals", color: .purple, numberOfPairs: 7, emojis:
-                ["🐨", "🐰","🐶","🦁","🙉","🦋","🐻","🐶","🐔","🐤","🦄",]),
+                ["🐨", "🐰","🪳","🦁","🙉","🦋","🐻","🐶","🐔","🐤","🦄",]),
         theme(name: "Vehicles", color: .blue, numberOfPairs: 10, emojis:
                 ["🚌","🚙","🚗","🚒","🚕","🏎","🚓","🚛"]),
         theme(name: "Devices", color: .red, numberOfPairs: 12, emojis:
@@ -49,6 +49,7 @@ class EmojiMemoryGame: ObservableObject{
     
     static func createMemoryGame(withTheme thisTheme: theme) -> MemoryGame<String> {
         let emojiArray = thisTheme.emojis.shuffled()
+        print(emojiArray)
         var pairAmount = thisTheme.numberOfPairs
         
         if pairAmount > thisTheme.emojis.count{

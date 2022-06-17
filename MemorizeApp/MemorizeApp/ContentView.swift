@@ -10,8 +10,9 @@ struct EmojiMemoryGameView: View {
                 .foregroundColor(.yellow)
                 .padding(.pi)
                 .font(.title)
+                
             ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
                     ForEach(gameViewModel.cards){ card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
@@ -64,7 +65,7 @@ struct CardView: View{
             if card.isFaceUp{
                 myRect.fill().foregroundColor(.white)
                 myRect.strokeBorder(lineWidth: 5)
-                Text(card.content).font(.largeTitle)
+                Text(card.content).font(Font.system(size: 70))
             } else if card.isMatched{
                 myRect.opacity(0)
             } else{
