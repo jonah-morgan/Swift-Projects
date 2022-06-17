@@ -1,30 +1,21 @@
-//
-//  ContentView.swift
-//  Memorize
-//
-//  Created by Jonah Morgan on 6/5/22.
-//
-
 import SwiftUI
 
-struct memorizeView: View {
+struct EmojiMemoryGameView: View {
     
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var gameViewModel = EmojiMemoryGame()
     
     var body: some View {
         VStack{
-            Text("Memorize some \(EmojiMemoryGame.thisThemesName)!")
+            Text("Memorize some " + gameViewModel.getName() + "!")
                 .foregroundColor(.yellow)
                 .padding(.pi)
                 .font(.title)
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
-                    ForEach(viewModel.cards){ card in
+                    ForEach(gameViewModel.cards){ card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
-                            .onTapGesture{
-                                viewModel.choose(card)
-                            }
+                            .onTapGesture{ gameViewModel.choose(card) }
                     }
                 }
             }
@@ -32,9 +23,7 @@ struct memorizeView: View {
             HStack{
                 newGameButton
                 Spacer()
-                Text("Score: \(viewModel.score)")
-                    .font(.title2)
-                    .foregroundColor(.blue)
+                scoreText
             }
         }
         .padding(.horizontal)
@@ -42,9 +31,7 @@ struct memorizeView: View {
     }
     
     var newGameButton: some View {
-        Button(action: {
-            viewModel.newGame()
-        }, label: {
+        Button( action: {gameViewModel.newGame()} ) {
             ZStack{
                 RoundedRectangle(cornerRadius: 20).aspectRatio(3/1, contentMode: .fit)
                     .foregroundColor(.mint)
@@ -55,14 +42,20 @@ struct memorizeView: View {
                     .padding()
             }
             
-        })
+        }
+    }
+    
+    var scoreText: some View{
+        Text("Score: " + String(gameViewModel.score))
+            .font(.title2)
+            .foregroundColor(.blue)
     }
     
 }
  
 
+
 struct CardView: View{
-    
     let card:MemoryGame<String>.Card
     let myRect = RoundedRectangle(cornerRadius: 20)
     
@@ -80,25 +73,8 @@ struct CardView: View{
             }
         }.foregroundColor(card.color)
     }
-    
 }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -107,11 +83,11 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = EmojiMemoryGame()
         
-        memorizeView(viewModel: game)
+        EmojiMemoryGameView(gameViewModel: game)
             .preferredColorScheme(.light)
             .previewInterfaceOrientation(.landscapeLeft)
         
-        memorizeView(viewModel: game)
+        EmojiMemoryGameView(gameViewModel: game)
             .preferredColorScheme(.dark)
         
     }
