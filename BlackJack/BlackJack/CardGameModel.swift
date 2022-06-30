@@ -10,70 +10,60 @@ import SwiftUI
 
 @MainActor class CardGameModel: ObservableObject {
     
-    private static let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
     private let drawCardURL = "https://deckofcardsapi.com/api/deck/<<deck_id>>/draw/?count="
+    private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+    private var newDeckCommunicator: DecodedDeck?
     
-    private var newDeckCommunicator = APICommunicator<DecodedDeck>(withUrl: newDeckURL)
     private var deck: DecodedDeck?
-    @Published private(set) var cards: [Card] = []
-    var id = 0
+    // figure out how to get cards drawn to these piles
+    @Published private var pileOfCardsDictionary: [String:[Card]] = [
+        "dealersPile": [],
+        "playersPile": []
+    ]
+    private(set) var images: [UIImage] = []
     
-    
-    func newDeck() { newDeckCommunicator.getData { newDeck in
-            self.deck = newDeck
-        }
+    // work with these
+    func newDeck() {
+        let downloader = APICommunicator<DecodedDeck>(withUrl: newDeckURL)
+        downloader.getData(completionBlock: {self.deck = $0})
     }
     
     
-    func drawCards(amount: Int) {
-        var modifiedURL = drawCardURL
-        modifiedURL = modifiedURL.replacingOccurrences(of: "<<deck_id>>", with: deck!.deck_id)
-        modifiedURL += String(amount)
+    func drawCards(to thisPile: String, amount: Int) {
+        var cards = pileOfCardsDictionary[thisPile]
         
-        let newCardCommunicator = APICommunicator<DecodedDrawnCards>(withUrl: modifiedURL)
+        var cardURL = drawCardURL
+        cardURL = cardURL.replacingOccurrences(of: "<<deck_id>>", with: deck!.deck_id)
+        cardURL += String(amount)
         
-        newCardCommunicator.getData(completionBlock: { newCards in
+        let newCardCommunicator = APICommunicator<DecodedDrawnCards>(withUrl: cardURL)
+        newCardCommunicator.getData( completionBlock: { newCards in
+            
             for card in newCards.cards {
-                self.cards.append(self.convertDecodedCard(from: card, with: self.id))
-                self.id += 1
+                let id: Int?
+                if cards!.count == 0 { id = 0 } else { id = cards!.count }
+                
+                cards!.append(self.convertDecodedCard(from: card, with: id!))
+                self.deck!.remaining -= 1
             }
-            for card in self.cards{
+            
+            for card in cards!{
                 print("\(card)\n")
             }
-            self.deck!.remaining -= amount
+            
+            self.pileOfCardsDictionary[thisPile]! = cards!
         })
         
     }
     
     
-    func printDeck() {
-        if deck != nil {
-            deck?.printInfo()
-        } else {
-            print("No Deck Information")
-        }
-    }
+    func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
     
     private func convertDecodedCard(from card: DecodedCard, with id: Int) -> Card {
-        return Card(id: id, code: card.code, image: card.image, value: card.value, suit: card.suit)
-    }
-    
-    
-    struct Card: Identifiable {
-        var id: Int
-        let code: String
-        let image: String
-        let value: String
-        let suit: String
-        
-        init(id: Int, code: String, image: String, value: String, suit: String) {
-            self.id = id
-            self.code = code
-            self.image = image
-            self.value = value
-            self.suit = suit
-        }
-        
+        var newCard = Card(id: id, code: card.code, image: card.image, value: card.value, suit: card.suit)
+        let downloader = APIImageDownloader(withUrl: card.image)
+        downloader.getData { newCard.uiImage = $0 }
+        return newCard
     }
     
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct DecodedDeck: Codable {
     
@@ -36,4 +37,23 @@ struct DecodedDrawnCards: Codable {
     let deck_id: String
     let cards: [DecodedCard]
     let remaining: Int
+}
+
+
+struct Card: Identifiable {
+    let id: Int
+    let code: String
+    let image: String
+    var uiImage: UIImage?
+    let value: String
+    let suit: String
+    
+    init(id: Int, code: String, image: String, value: String, suit: String) {
+        self.id = id
+        self.code = code
+        self.image = image
+        self.value = value
+        self.suit = suit
+    }
+    
 }
