@@ -12,7 +12,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
     private(set) var score = 0
     
     struct Card: Identifiable{
-        var isFaceUp = true
+        var isFaceUp = false
         var isMatched = false
         var previouslySeen = false
         let content: CardContent

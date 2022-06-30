@@ -7,28 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C2EC8EC2852AF0E00CCD1DB /* MemorizeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8EB2852AF0E00CCD1DB /* MemorizeAppApp.swift */; };
-		8C2EC8EE2852AF0E00CCD1DB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8ED2852AF0E00CCD1DB /* ContentView.swift */; };
-		8C2EC8F02852AF1000CCD1DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EC8EF2852AF1000CCD1DB /* Assets.xcassets */; };
-		8C2EC8F32852AF1000CCD1DB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EC8F22852AF1000CCD1DB /* Preview Assets.xcassets */; };
-		8C2EC8FA2852C2F300CCD1DB /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8F92852C2F300CCD1DB /* MemoryGame.swift */; };
-		8C2EC8FC2852C47300CCD1DB /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8FB2852C47300CCD1DB /* EmojiMemoryGame.swift */; };
-		AD8977B1286531B00079895E /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8977B0286531B00079895E /* Pie.swift */; };
+		ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD60286DD710006FED1A /* BlackJackApp.swift */; };
+		ADD1CD63286DD710006FED1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD62286DD710006FED1A /* ContentView.swift */; };
+		ADD1CD65286DD711006FED1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD64286DD711006FED1A /* Assets.xcassets */; };
+		ADD1CD68286DD711006FED1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD67286DD711006FED1A /* Preview Assets.xcassets */; };
+		ADD1CD6F286DD7AF006FED1A /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD6E286DD7AF006FED1A /* APICommunicator.swift */; };
+		ADD1CD71286DD7D0006FED1A /* APIStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD70286DD7D0006FED1A /* APIStructures.swift */; };
+		ADD1CD73286DD7EA006FED1A /* CardGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD72286DD7EA006FED1A /* CardGameModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8C2EC8E82852AF0E00CCD1DB /* MemorizeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemorizeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C2EC8EB2852AF0E00CCD1DB /* MemorizeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeAppApp.swift; sourceTree = "<group>"; };
-		8C2EC8ED2852AF0E00CCD1DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8C2EC8EF2852AF1000CCD1DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8C2EC8F22852AF1000CCD1DB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8C2EC8F92852C2F300CCD1DB /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
-		8C2EC8FB2852C47300CCD1DB /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
-		AD8977B0286531B00079895E /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		ADD1CD5D286DD710006FED1A /* BlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADD1CD60286DD710006FED1A /* BlackJackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackApp.swift; sourceTree = "<group>"; };
+		ADD1CD62286DD710006FED1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ADD1CD64286DD711006FED1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ADD1CD67286DD711006FED1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ADD1CD6E286DD7AF006FED1A /* APICommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
+		ADD1CD70286DD7D0006FED1A /* APIStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructures.swift; sourceTree = "<group>"; };
+		ADD1CD72286DD7EA006FED1A /* CardGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8C2EC8E52852AF0E00CCD1DB /* Frameworks */ = {
+		ADD1CD5A286DD710006FED1A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -38,40 +38,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8C2EC8DF2852AF0E00CCD1DB = {
+		ADD1CD54286DD710006FED1A = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8EA2852AF0E00CCD1DB /* MemorizeApp */,
-				8C2EC8E92852AF0E00CCD1DB /* Products */,
+				ADD1CD5F286DD710006FED1A /* BlackJack */,
+				ADD1CD5E286DD710006FED1A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8C2EC8E92852AF0E00CCD1DB /* Products */ = {
+		ADD1CD5E286DD710006FED1A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8E82852AF0E00CCD1DB /* MemorizeApp.app */,
+				ADD1CD5D286DD710006FED1A /* BlackJack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8C2EC8EA2852AF0E00CCD1DB /* MemorizeApp */ = {
+		ADD1CD5F286DD710006FED1A /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8EB2852AF0E00CCD1DB /* MemorizeAppApp.swift */,
-				8C2EC8ED2852AF0E00CCD1DB /* ContentView.swift */,
-				AD8977B0286531B00079895E /* Pie.swift */,
-				8C2EC8F92852C2F300CCD1DB /* MemoryGame.swift */,
-				8C2EC8FB2852C47300CCD1DB /* EmojiMemoryGame.swift */,
-				8C2EC8EF2852AF1000CCD1DB /* Assets.xcassets */,
-				8C2EC8F12852AF1000CCD1DB /* Preview Content */,
+				ADD1CD60286DD710006FED1A /* BlackJackApp.swift */,
+				ADD1CD6E286DD7AF006FED1A /* APICommunicator.swift */,
+				ADD1CD70286DD7D0006FED1A /* APIStructures.swift */,
+				ADD1CD72286DD7EA006FED1A /* CardGameModel.swift */,
+				ADD1CD62286DD710006FED1A /* ContentView.swift */,
+				ADD1CD64286DD711006FED1A /* Assets.xcassets */,
+				ADD1CD66286DD711006FED1A /* Preview Content */,
 			);
-			path = MemorizeApp;
+			path = BlackJack;
 			sourceTree = "<group>";
 		};
-		8C2EC8F12852AF1000CCD1DB /* Preview Content */ = {
+		ADD1CD66286DD711006FED1A /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8F22852AF1000CCD1DB /* Preview Assets.xcassets */,
+				ADD1CD67286DD711006FED1A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -79,39 +79,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8C2EC8E72852AF0E00CCD1DB /* MemorizeApp */ = {
+		ADD1CD5C286DD710006FED1A /* BlackJack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8C2EC8F62852AF1000CCD1DB /* Build configuration list for PBXNativeTarget "MemorizeApp" */;
+			buildConfigurationList = ADD1CD6B286DD711006FED1A /* Build configuration list for PBXNativeTarget "BlackJack" */;
 			buildPhases = (
-				8C2EC8E42852AF0E00CCD1DB /* Sources */,
-				8C2EC8E52852AF0E00CCD1DB /* Frameworks */,
-				8C2EC8E62852AF0E00CCD1DB /* Resources */,
+				ADD1CD59286DD710006FED1A /* Sources */,
+				ADD1CD5A286DD710006FED1A /* Frameworks */,
+				ADD1CD5B286DD710006FED1A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MemorizeApp;
-			productName = MemorizeApp;
-			productReference = 8C2EC8E82852AF0E00CCD1DB /* MemorizeApp.app */;
+			name = BlackJack;
+			productName = BlackJack;
+			productReference = ADD1CD5D286DD710006FED1A /* BlackJack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8C2EC8E02852AF0E00CCD1DB /* Project object */ = {
+		ADD1CD55286DD710006FED1A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
-					8C2EC8E72852AF0E00CCD1DB = {
+					ADD1CD5C286DD710006FED1A = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
-			buildConfigurationList = 8C2EC8E32852AF0E00CCD1DB /* Build configuration list for PBXProject "MemorizeApp" */;
+			buildConfigurationList = ADD1CD58286DD710006FED1A /* Build configuration list for PBXProject "BlackJack" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -119,45 +119,45 @@
 				en,
 				Base,
 			);
-			mainGroup = 8C2EC8DF2852AF0E00CCD1DB;
-			productRefGroup = 8C2EC8E92852AF0E00CCD1DB /* Products */;
+			mainGroup = ADD1CD54286DD710006FED1A;
+			productRefGroup = ADD1CD5E286DD710006FED1A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8C2EC8E72852AF0E00CCD1DB /* MemorizeApp */,
+				ADD1CD5C286DD710006FED1A /* BlackJack */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8C2EC8E62852AF0E00CCD1DB /* Resources */ = {
+		ADD1CD5B286DD710006FED1A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C2EC8F32852AF1000CCD1DB /* Preview Assets.xcassets in Resources */,
-				8C2EC8F02852AF1000CCD1DB /* Assets.xcassets in Resources */,
+				ADD1CD68286DD711006FED1A /* Preview Assets.xcassets in Resources */,
+				ADD1CD65286DD711006FED1A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8C2EC8E42852AF0E00CCD1DB /* Sources */ = {
+		ADD1CD59286DD710006FED1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD8977B1286531B00079895E /* Pie.swift in Sources */,
-				8C2EC8FA2852C2F300CCD1DB /* MemoryGame.swift in Sources */,
-				8C2EC8EE2852AF0E00CCD1DB /* ContentView.swift in Sources */,
-				8C2EC8EC2852AF0E00CCD1DB /* MemorizeAppApp.swift in Sources */,
-				8C2EC8FC2852C47300CCD1DB /* EmojiMemoryGame.swift in Sources */,
+				ADD1CD71286DD7D0006FED1A /* APIStructures.swift in Sources */,
+				ADD1CD63286DD710006FED1A /* ContentView.swift in Sources */,
+				ADD1CD73286DD7EA006FED1A /* CardGameModel.swift in Sources */,
+				ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */,
+				ADD1CD6F286DD7AF006FED1A /* APICommunicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		8C2EC8F42852AF1000CCD1DB /* Debug */ = {
+		ADD1CD69286DD711006FED1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -217,7 +217,7 @@
 			};
 			name = Debug;
 		};
-		8C2EC8F52852AF1000CCD1DB /* Release */ = {
+		ADD1CD6A286DD711006FED1A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -271,15 +271,14 @@
 			};
 			name = Release;
 		};
-		8C2EC8F72852AF1000CCD1DB /* Debug */ = {
+		ADD1CD6C286DD711006FED1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MemorizeApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 59Z2BYR2P9;
+				DEVELOPMENT_ASSET_PATHS = "\"BlackJack/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -292,7 +291,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jonah.allen.morgan.MemorizeApp;
+				PRODUCT_BUNDLE_IDENTIFIER = JonahMorgan.BlackJack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -300,15 +299,14 @@
 			};
 			name = Debug;
 		};
-		8C2EC8F82852AF1000CCD1DB /* Release */ = {
+		ADD1CD6D286DD711006FED1A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MemorizeApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 59Z2BYR2P9;
+				DEVELOPMENT_ASSET_PATHS = "\"BlackJack/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -321,7 +319,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jonah.allen.morgan.MemorizeApp;
+				PRODUCT_BUNDLE_IDENTIFIER = JonahMorgan.BlackJack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -332,25 +330,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8C2EC8E32852AF0E00CCD1DB /* Build configuration list for PBXProject "MemorizeApp" */ = {
+		ADD1CD58286DD710006FED1A /* Build configuration list for PBXProject "BlackJack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8C2EC8F42852AF1000CCD1DB /* Debug */,
-				8C2EC8F52852AF1000CCD1DB /* Release */,
+				ADD1CD69286DD711006FED1A /* Debug */,
+				ADD1CD6A286DD711006FED1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8C2EC8F62852AF1000CCD1DB /* Build configuration list for PBXNativeTarget "MemorizeApp" */ = {
+		ADD1CD6B286DD711006FED1A /* Build configuration list for PBXNativeTarget "BlackJack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8C2EC8F72852AF1000CCD1DB /* Debug */,
-				8C2EC8F82852AF1000CCD1DB /* Release */,
+				ADD1CD6C286DD711006FED1A /* Debug */,
+				ADD1CD6D286DD711006FED1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8C2EC8E02852AF0E00CCD1DB /* Project object */;
+	rootObject = ADD1CD55286DD710006FED1A /* Project object */;
 }

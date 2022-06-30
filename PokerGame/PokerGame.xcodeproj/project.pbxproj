@@ -7,28 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C2EC8EC2852AF0E00CCD1DB /* MemorizeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8EB2852AF0E00CCD1DB /* MemorizeAppApp.swift */; };
-		8C2EC8EE2852AF0E00CCD1DB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8ED2852AF0E00CCD1DB /* ContentView.swift */; };
-		8C2EC8F02852AF1000CCD1DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EC8EF2852AF1000CCD1DB /* Assets.xcassets */; };
-		8C2EC8F32852AF1000CCD1DB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EC8F22852AF1000CCD1DB /* Preview Assets.xcassets */; };
-		8C2EC8FA2852C2F300CCD1DB /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8F92852C2F300CCD1DB /* MemoryGame.swift */; };
-		8C2EC8FC2852C47300CCD1DB /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2EC8FB2852C47300CCD1DB /* EmojiMemoryGame.swift */; };
-		AD8977B1286531B00079895E /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8977B0286531B00079895E /* Pie.swift */; };
+		AD8977E328654B320079895E /* PokerGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8977E228654B320079895E /* PokerGameApp.swift */; };
+		AD8977E528654B320079895E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8977E428654B320079895E /* ContentView.swift */; };
+		AD8977E728654B330079895E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8977E628654B330079895E /* Assets.xcassets */; };
+		AD8977EA28654B330079895E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8977E928654B330079895E /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8C2EC8E82852AF0E00CCD1DB /* MemorizeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemorizeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C2EC8EB2852AF0E00CCD1DB /* MemorizeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeAppApp.swift; sourceTree = "<group>"; };
-		8C2EC8ED2852AF0E00CCD1DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8C2EC8EF2852AF1000CCD1DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8C2EC8F22852AF1000CCD1DB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8C2EC8F92852C2F300CCD1DB /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
-		8C2EC8FB2852C47300CCD1DB /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
-		AD8977B0286531B00079895E /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		AD8977DF28654B320079895E /* PokerGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokerGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD8977E228654B320079895E /* PokerGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokerGameApp.swift; sourceTree = "<group>"; };
+		AD8977E428654B320079895E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AD8977E628654B330079895E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AD8977E928654B330079895E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8C2EC8E52852AF0E00CCD1DB /* Frameworks */ = {
+		AD8977DC28654B320079895E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -38,40 +32,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8C2EC8DF2852AF0E00CCD1DB = {
+		AD8977D628654B320079895E = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8EA2852AF0E00CCD1DB /* MemorizeApp */,
-				8C2EC8E92852AF0E00CCD1DB /* Products */,
+				AD8977E128654B320079895E /* PokerGame */,
+				AD8977E028654B320079895E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8C2EC8E92852AF0E00CCD1DB /* Products */ = {
+		AD8977E028654B320079895E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8E82852AF0E00CCD1DB /* MemorizeApp.app */,
+				AD8977DF28654B320079895E /* PokerGame.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8C2EC8EA2852AF0E00CCD1DB /* MemorizeApp */ = {
+		AD8977E128654B320079895E /* PokerGame */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8EB2852AF0E00CCD1DB /* MemorizeAppApp.swift */,
-				8C2EC8ED2852AF0E00CCD1DB /* ContentView.swift */,
-				AD8977B0286531B00079895E /* Pie.swift */,
-				8C2EC8F92852C2F300CCD1DB /* MemoryGame.swift */,
-				8C2EC8FB2852C47300CCD1DB /* EmojiMemoryGame.swift */,
-				8C2EC8EF2852AF1000CCD1DB /* Assets.xcassets */,
-				8C2EC8F12852AF1000CCD1DB /* Preview Content */,
+				AD8977E228654B320079895E /* PokerGameApp.swift */,
+				AD8977E428654B320079895E /* ContentView.swift */,
+				AD8977E628654B330079895E /* Assets.xcassets */,
+				AD8977E828654B330079895E /* Preview Content */,
 			);
-			path = MemorizeApp;
+			path = PokerGame;
 			sourceTree = "<group>";
 		};
-		8C2EC8F12852AF1000CCD1DB /* Preview Content */ = {
+		AD8977E828654B330079895E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EC8F22852AF1000CCD1DB /* Preview Assets.xcassets */,
+				AD8977E928654B330079895E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -79,39 +70,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8C2EC8E72852AF0E00CCD1DB /* MemorizeApp */ = {
+		AD8977DE28654B320079895E /* PokerGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8C2EC8F62852AF1000CCD1DB /* Build configuration list for PBXNativeTarget "MemorizeApp" */;
+			buildConfigurationList = AD8977ED28654B330079895E /* Build configuration list for PBXNativeTarget "PokerGame" */;
 			buildPhases = (
-				8C2EC8E42852AF0E00CCD1DB /* Sources */,
-				8C2EC8E52852AF0E00CCD1DB /* Frameworks */,
-				8C2EC8E62852AF0E00CCD1DB /* Resources */,
+				AD8977DB28654B320079895E /* Sources */,
+				AD8977DC28654B320079895E /* Frameworks */,
+				AD8977DD28654B320079895E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MemorizeApp;
-			productName = MemorizeApp;
-			productReference = 8C2EC8E82852AF0E00CCD1DB /* MemorizeApp.app */;
+			name = PokerGame;
+			productName = PokerGame;
+			productReference = AD8977DF28654B320079895E /* PokerGame.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8C2EC8E02852AF0E00CCD1DB /* Project object */ = {
+		AD8977D728654B320079895E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
-					8C2EC8E72852AF0E00CCD1DB = {
+					AD8977DE28654B320079895E = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
-			buildConfigurationList = 8C2EC8E32852AF0E00CCD1DB /* Build configuration list for PBXProject "MemorizeApp" */;
+			buildConfigurationList = AD8977DA28654B320079895E /* Build configuration list for PBXProject "PokerGame" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -119,45 +110,42 @@
 				en,
 				Base,
 			);
-			mainGroup = 8C2EC8DF2852AF0E00CCD1DB;
-			productRefGroup = 8C2EC8E92852AF0E00CCD1DB /* Products */;
+			mainGroup = AD8977D628654B320079895E;
+			productRefGroup = AD8977E028654B320079895E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8C2EC8E72852AF0E00CCD1DB /* MemorizeApp */,
+				AD8977DE28654B320079895E /* PokerGame */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8C2EC8E62852AF0E00CCD1DB /* Resources */ = {
+		AD8977DD28654B320079895E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C2EC8F32852AF1000CCD1DB /* Preview Assets.xcassets in Resources */,
-				8C2EC8F02852AF1000CCD1DB /* Assets.xcassets in Resources */,
+				AD8977EA28654B330079895E /* Preview Assets.xcassets in Resources */,
+				AD8977E728654B330079895E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8C2EC8E42852AF0E00CCD1DB /* Sources */ = {
+		AD8977DB28654B320079895E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD8977B1286531B00079895E /* Pie.swift in Sources */,
-				8C2EC8FA2852C2F300CCD1DB /* MemoryGame.swift in Sources */,
-				8C2EC8EE2852AF0E00CCD1DB /* ContentView.swift in Sources */,
-				8C2EC8EC2852AF0E00CCD1DB /* MemorizeAppApp.swift in Sources */,
-				8C2EC8FC2852C47300CCD1DB /* EmojiMemoryGame.swift in Sources */,
+				AD8977E528654B320079895E /* ContentView.swift in Sources */,
+				AD8977E328654B320079895E /* PokerGameApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		8C2EC8F42852AF1000CCD1DB /* Debug */ = {
+		AD8977EB28654B330079895E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -217,7 +205,7 @@
 			};
 			name = Debug;
 		};
-		8C2EC8F52852AF1000CCD1DB /* Release */ = {
+		AD8977EC28654B330079895E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -271,15 +259,14 @@
 			};
 			name = Release;
 		};
-		8C2EC8F72852AF1000CCD1DB /* Debug */ = {
+		AD8977EE28654B330079895E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MemorizeApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 59Z2BYR2P9;
+				DEVELOPMENT_ASSET_PATHS = "\"PokerGame/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -292,7 +279,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jonah.allen.morgan.MemorizeApp;
+				PRODUCT_BUNDLE_IDENTIFIER = JonahMorgan.PokerGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -300,15 +287,14 @@
 			};
 			name = Debug;
 		};
-		8C2EC8F82852AF1000CCD1DB /* Release */ = {
+		AD8977EF28654B330079895E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MemorizeApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 59Z2BYR2P9;
+				DEVELOPMENT_ASSET_PATHS = "\"PokerGame/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -321,7 +307,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = jonah.allen.morgan.MemorizeApp;
+				PRODUCT_BUNDLE_IDENTIFIER = JonahMorgan.PokerGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -332,25 +318,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8C2EC8E32852AF0E00CCD1DB /* Build configuration list for PBXProject "MemorizeApp" */ = {
+		AD8977DA28654B320079895E /* Build configuration list for PBXProject "PokerGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8C2EC8F42852AF1000CCD1DB /* Debug */,
-				8C2EC8F52852AF1000CCD1DB /* Release */,
+				AD8977EB28654B330079895E /* Debug */,
+				AD8977EC28654B330079895E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8C2EC8F62852AF1000CCD1DB /* Build configuration list for PBXNativeTarget "MemorizeApp" */ = {
+		AD8977ED28654B330079895E /* Build configuration list for PBXNativeTarget "PokerGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8C2EC8F72852AF1000CCD1DB /* Debug */,
-				8C2EC8F82852AF1000CCD1DB /* Release */,
+				AD8977EE28654B330079895E /* Debug */,
+				AD8977EF28654B330079895E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8C2EC8E02852AF0E00CCD1DB /* Project object */;
+	rootObject = AD8977D728654B320079895E /* Project object */;
 }

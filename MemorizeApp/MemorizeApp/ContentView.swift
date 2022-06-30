@@ -36,7 +36,7 @@ struct EmojiMemoryGameView: View {
             ZStack{
                 RoundedRectangle(cornerRadius: 20).aspectRatio(3/1, contentMode: .fit)
                     .foregroundColor(.mint)
-                    .frame(width: 150, height: 70, alignment: .center)
+                    .frame(width: 120, height: 70, alignment: .center)
                 Text("New Game")
                     .foregroundColor(.blue)
                     .font(.title3)
@@ -65,6 +65,10 @@ struct CardView: View{
             if card.isFaceUp{
                 myRect.fill().foregroundColor(.white)
                 myRect.strokeBorder(lineWidth: 5)
+                Pie(
+                    startAngle: Angle(degrees: 270),
+                    endAngle: Angle(degrees: 45))
+                .opacity(0.5).padding(7)
                 Text(card.content).font(Font.system(size: 70))
             } else if card.isMatched{
                 myRect.opacity(0)
@@ -72,6 +76,7 @@ struct CardView: View{
                 myRect.fill()
                 Text(" ").font(.largeTitle)
             }
+            
         }.foregroundColor(card.color)
     }
 }
@@ -83,13 +88,10 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         let game = EmojiMemoryGame()
-        
-        EmojiMemoryGameView(gameViewModel: game)
+        game.choose(game.cards.first!)
+        return  EmojiMemoryGameView(gameViewModel: game)
             .preferredColorScheme(.light)
             .previewInterfaceOrientation(.landscapeLeft)
-        
-        EmojiMemoryGameView(gameViewModel: game)
-            .preferredColorScheme(.dark)
         
     }
 }
