@@ -56,4 +56,10 @@ struct Card: Identifiable {
         self.suit = suit
     }
     
+    subscript(index: Int) -> Int {
+        get {
+            self.id
+        }
+    }
+    
 }

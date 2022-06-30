@@ -11,24 +11,46 @@ struct ContentView: View {
     @ObservedObject var CardGame = CardGameModel()
 
     var body: some View {
+        
         VStack {
             Button(action: {
                 CardGame.newDeck()
             }, label: {Text("New Deck")})
-            Button(action: {CardGame.printDeck()}, label: {Text("Print Deck")})
-            Button(action: {CardGame.drawCards(amount: 1)}, label: {Text("Draw A Card")})
-            Button(action: {CardGame.downloadImage(from: CardGame.cards[0].image)}, label: {Text("Download Picture")})
-            ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                    ForEach(CardGame.cards){ card in
-                        VStack {
-                            Text(card.suit)
-                            Text(card.value)
+            
+            Button(action: {
+                CardGame.printDeck()
+            }, label: {Text("Print Deck")})
+            
+            Button(action: {
+                CardGame.newPlayerPile(amount: 5)
+                CardGame.printDeck()
+            }, label: {Text("New Player Pile")})
+            
+            Button(action: {
+                CardGame.newDealerPile(amount: 5)
+                CardGame.printDeck()
+            }, label: {Text("New Dealer Pile")})
+            
+            HStack{
+                ScrollView{
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
+                        if CardGame.pileOfCardsDictionary["playersPile"]!.count > 0 {
+                            ForEach(CardGame.pileOfCardsDictionary["playersPile"]!) { card in
+                                Image(uiImage: card.uiImage!).frame(width: 50, height: 50, alignment: .center)
+                            }
+
                         }
                     }
                 }
-                if CardGame.images.count > 0 {
-                    Image(uiImage: CardGame.images[0])
+                ScrollView{
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
+                        if CardGame.pileOfCardsDictionary["dealersPile"]!.count > 0 {
+                            ForEach(CardGame.pileOfCardsDictionary["playersPile"]!) { card in
+                                Image(uiImage: card.uiImage!).frame(width: 50, height: 50, alignment: .center)
+                            }
+
+                        }
+                    }
                 }
             }
             
