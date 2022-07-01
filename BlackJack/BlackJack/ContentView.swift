@@ -30,25 +30,30 @@ struct ContentView: View {
                 CardGame.newDealerPile(amount: 5)
                 CardGame.printDeck()
             }, label: {Text("New Dealer Pile")})
+            Button(action: {
+                CardGame.makePileEmpty("playersPile")
+            }, label: {Text("Empty Player Pile")})
+            Button(action: {
+                CardGame.makePileEmpty("dealersPile")
+            }, label: {Text("Empty Dealers Pile")})
             
             HStack{
                 ScrollView{
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                        if CardGame.pileOfCardsDictionary["playersPile"]!.count > 0 {
-                            ForEach(CardGame.pileOfCardsDictionary["playersPile"]!) { card in
+                        ForEach(CardGame.pileOfCardsDictionary["playersPile"]!) { card in
+                            if card.uiImage != nil {
                                 Image(uiImage: card.uiImage!).frame(width: 50, height: 50, alignment: .center)
                             }
-
                         }
                     }
                 }
                 ScrollView{
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                        if CardGame.pileOfCardsDictionary["dealersPile"]!.count > 0 {
-                            ForEach(CardGame.pileOfCardsDictionary["playersPile"]!) { card in
+                        ForEach(CardGame.pileOfCardsDictionary["dealersPile"]!) { card in
+                            if card.uiImage != nil {
                                 Image(uiImage: card.uiImage!).frame(width: 50, height: 50, alignment: .center)
                             }
-
+                            
                         }
                     }
                 }

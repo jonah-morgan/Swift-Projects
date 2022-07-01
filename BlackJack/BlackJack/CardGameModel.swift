@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor class CardGameModel: ObservableObject {
+class CardGameModel: ObservableObject {
     
     //figure out how to make images update on time!!!!!!
     
@@ -17,13 +17,11 @@ import SwiftUI
     private var newDeckCommunicator: DecodedDeck?
     
     private var deck: DecodedDeck?
-
-    var pileOfCardsDictionary: [String:[Card]] = [
+    
+    @Published var pileOfCardsDictionary: [String:[Card]] = [
         "dealersPile": [],
         "playersPile": []
     ]
-    private(set) var images: [UIImage] = []
-    
     
     func newDeck() {
         let downloader = APICommunicator<DecodedDeck>(withUrl: newDeckURL)
@@ -32,8 +30,13 @@ import SwiftUI
     
     func newPlayerPile(amount: Int) { drawCards(to: "playersPile", amount: 5) }
     func newDealerPile(amount: Int) { drawCards(to: "dealersPile", amount: 5) }
+    func makePileEmpty(_ pile: String) {
+        let emptyPile: [Card] = []
+        pileOfCardsDictionary[pile]! = emptyPile
+    }
     
-    @MainActor func drawCards(to thisPile: String, amount: Int) {
+    private func drawCards(to thisPile: String, amount: Int) {
+        if self.deck!.remaining < amount { self.newDeck() }
         var cards = pileOfCardsDictionary[thisPile]
         
         var cardURL = drawCardURL
@@ -54,19 +57,24 @@ import SwiftUI
             for card in cards!{
                 print("\(card)\n")
             }
-            
-            self.pileOfCardsDictionary[thisPile]! = cards!
-            self.downloadImages(to: thisPile)
+            DispatchQueue.main.async {
+                self.pileOfCardsDictionary[thisPile]! = cards!
+                self.downloadImages(to: thisPile)
+            }
         })
         
     }
     
-    @MainActor func downloadImages(to pile: String) {
+    func downloadImages(to pile: String) {
         for index in 0..<pileOfCardsDictionary[pile]!.count {
             let downloader = APIImageDownloader(withUrl: pileOfCardsDictionary[pile]![index].image)
-            downloader.getData(completionBlock: { self.pileOfCardsDictionary[pile]![index].uiImage = $0 })
+            downloader.getData(completionBlock: { image in
+                DispatchQueue.main.async {
+                    self.pileOfCardsDictionary[pile]![index].uiImage = image
+                }
+                
+            })
         }
-        
     }
     
     func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
@@ -75,55 +83,5 @@ import SwiftUI
         Card(id: id, code: decodedCard.code, image: decodedCard.image, value: decodedCard.value, suit: decodedCard.suit)
     }
     
-    
-    
-    @MainActor struct APICommunicator<T: Codable> {
-        let url: String
-        init(withUrl url: String) {
-            self.url = url
-        }
-        
-        func getData(completionBlock: @escaping (T) -> Void) {
-            
-            let task = URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
-                guard let data = data, error == nil else {
-                    print("Error fetching data from Server")
-                    return
-                }
-                
-                var result: T?
-                do {
-                    try result = JSONDecoder().decode(T.self, from: data)
-                    completionBlock(result!)
-                } catch {
-                    print("Failed to convert \(error.localizedDescription)")
-                }
-            }
-            task.resume()
-        }
-        
-    }
-
-
-    @MainActor struct APIImageDownloader{
-        let url: String
-        init(withUrl url: String) {
-            self.url = url
-        }
-        
-        func getData(completionBlock: @escaping (UIImage) -> Void) {
-            
-            let task = URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
-                guard let data = data, error == nil else {
-                    print("Error fetching data from Server")
-                    return
-                }
-                let result = UIImage(data: data)
-                completionBlock(result!)
-            }
-            task.resume()
-        }
-        
-    }
 
 }
