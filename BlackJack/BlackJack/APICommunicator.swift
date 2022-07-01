@@ -32,7 +32,6 @@ struct APICommunicator<T: Codable> {
         }
         task.resume()
     }
-
 }
 
 

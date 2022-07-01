@@ -11,7 +11,7 @@ import SwiftUI
 struct BlackJackApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BlackJackGameView()
         }
     }
 }

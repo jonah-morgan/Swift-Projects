@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD60286DD710006FED1A /* BlackJackApp.swift */; };
-		ADD1CD63286DD710006FED1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD62286DD710006FED1A /* ContentView.swift */; };
+		ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */; };
 		ADD1CD65286DD711006FED1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD64286DD711006FED1A /* Assets.xcassets */; };
 		ADD1CD68286DD711006FED1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD67286DD711006FED1A /* Preview Assets.xcassets */; };
 		ADD1CD6F286DD7AF006FED1A /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD6E286DD7AF006FED1A /* APICommunicator.swift */; };
@@ -19,7 +19,7 @@
 /* Begin PBXFileReference section */
 		ADD1CD5D286DD710006FED1A /* BlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD1CD60286DD710006FED1A /* BlackJackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackApp.swift; sourceTree = "<group>"; };
-		ADD1CD62286DD710006FED1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackGameView.swift; sourceTree = "<group>"; };
 		ADD1CD64286DD711006FED1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADD1CD67286DD711006FED1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ADD1CD6E286DD7AF006FED1A /* APICommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 				ADD1CD6E286DD7AF006FED1A /* APICommunicator.swift */,
 				ADD1CD70286DD7D0006FED1A /* APIStructures.swift */,
 				ADD1CD72286DD7EA006FED1A /* CardGameModel.swift */,
-				ADD1CD62286DD710006FED1A /* ContentView.swift */,
+				ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */,
 				ADD1CD64286DD711006FED1A /* Assets.xcassets */,
 				ADD1CD66286DD711006FED1A /* Preview Content */,
 			);
@@ -147,7 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADD1CD71286DD7D0006FED1A /* APIStructures.swift in Sources */,
-				ADD1CD63286DD710006FED1A /* ContentView.swift in Sources */,
+				ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */,
 				ADD1CD73286DD7EA006FED1A /* CardGameModel.swift in Sources */,
 				ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */,
 				ADD1CD6F286DD7AF006FED1A /* APICommunicator.swift in Sources */,

@@ -9,9 +9,6 @@ import Foundation
 import SwiftUI
 
 class CardGameModel: ObservableObject {
-    
-    //figure out how to make images update on time!!!!!!
-    
     private let drawCardURL = "https://deckofcardsapi.com/api/deck/<<deck_id>>/draw/?count="
     private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
     private var newDeckCommunicator: DecodedDeck?
@@ -29,7 +26,9 @@ class CardGameModel: ObservableObject {
     }
     
     func newPlayerPile(amount: Int) { drawCards(to: "playersPile", amount: 5) }
+    
     func newDealerPile(amount: Int) { drawCards(to: "dealersPile", amount: 5) }
+    
     func makePileEmpty(_ pile: String) {
         let emptyPile: [Card] = []
         pileOfCardsDictionary[pile]! = emptyPile
@@ -54,9 +53,6 @@ class CardGameModel: ObservableObject {
                 self.deck!.remaining -= 1
             }
             
-            for card in cards!{
-                print("\(card)\n")
-            }
             DispatchQueue.main.async {
                 self.pileOfCardsDictionary[thisPile]! = cards!
                 self.downloadImages(to: thisPile)
@@ -64,6 +60,7 @@ class CardGameModel: ObservableObject {
         })
         
     }
+    
     
     func downloadImages(to pile: String) {
         for index in 0..<pileOfCardsDictionary[pile]!.count {
@@ -76,6 +73,7 @@ class CardGameModel: ObservableObject {
             })
         }
     }
+    
     
     func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
     
