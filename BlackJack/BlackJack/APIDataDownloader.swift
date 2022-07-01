@@ -5,10 +5,10 @@
 //  Created by Jonah Morgan on 6/30/22.
 //
 
-import Foundation
 import SwiftUI
 
-struct APICommunicator<T: Codable> {
+
+struct APIDataDownloader<T: Codable> {
     let url: String
     init(withUrl url: String) {
         self.url = url

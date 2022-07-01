@@ -5,44 +5,71 @@
 //  Created by Jonah Morgan on 6/30/22.
 //
 
-import Foundation
 import SwiftUI
 
 class CardGameModel: ObservableObject {
-    private let drawCardURL = "https://deckofcardsapi.com/api/deck/<<deck_id>>/draw/?count="
-    private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
-    private var newDeckCommunicator: DecodedDeck?
-    
-    private var deck: DecodedDeck?
-    
-    @Published var pileOfCardsDictionary: [String:[Card]] = [
+    // Public
+    @Published var pileOfCards: [String:[Card]] = [
         "dealersPile": [],
         "playersPile": []
     ]
     
-    func newDeck() {
-        let downloader = APICommunicator<DecodedDeck>(withUrl: newDeckURL)
-        downloader.getData(completionBlock: {self.deck = $0})
+    
+    func deal() {
+        self.newDeck()
+        while(self.deck == nil) {}
+        drawCards(to: "playersPile", amount: 2)
+        drawCards(to: "dealersPile", amount: 2)
     }
     
-    func newPlayerPile(amount: Int) { drawCards(to: "playersPile", amount: 5) }
     
-    func newDealerPile(amount: Int) { drawCards(to: "dealersPile", amount: 5) }
+    // Private
+    private let drawCardURL = "https://deckofcardsapi.com/api/deck/<<deck_id>>/draw/?count="
+    private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+    private var deck: APIDeck?
+    private let maxDrawSize: Int = 52
     
-    func makePileEmpty(_ pile: String) {
-        let emptyPile: [Card] = []
-        pileOfCardsDictionary[pile]! = emptyPile
+    
+    private func newDeck() {
+        let downloader = APIDataDownloader<APIDeck>(withUrl: newDeckURL)
+        downloader.getData(completionBlock: { self.deck = $0 } )
     }
+    
+    
+    private func convertToCard(from decodedCard: APICard, with id: Int) -> Card {
+        Card(id: id, code: decodedCard.code, image: decodedCard.image, value: decodedCard.value, suit: decodedCard.suit)
+    }
+    
+    
+    private func downloadImages(to pile: String) {
+        for index in 0..<pileOfCards[pile]!.count {
+            let downloader = APIImageDownloader(withUrl: pileOfCards[pile]![index].image)
+            downloader.getData(completionBlock: { image in
+                DispatchQueue.main.async {
+                    self.pileOfCards[pile]![index].uiImage = image
+                }
+                
+            })
+        }
+    }
+    
     
     private func drawCards(to thisPile: String, amount: Int) {
         if self.deck!.remaining < amount { self.newDeck() }
-        var cards = pileOfCardsDictionary[thisPile]
+        if amount > maxDrawSize {
+            print("not enough cards in deck")
+            return
+        }
+        while self.deck!.remaining < amount {
+            
+        }
+        var cards = pileOfCards[thisPile]
         
         var cardURL = drawCardURL
         cardURL = cardURL.replacingOccurrences(of: "<<deck_id>>", with: deck!.deck_id)
         cardURL += String(amount)
         
-        let newCardCommunicator = APICommunicator<DecodedDrawnCards>(withUrl: cardURL)
+        let newCardCommunicator = APIDataDownloader<APIDrawnCards>(withUrl: cardURL)
         newCardCommunicator.getData( completionBlock: { newCards in
             
             for card in newCards.cards {
@@ -54,7 +81,7 @@ class CardGameModel: ObservableObject {
             }
             
             DispatchQueue.main.async {
-                self.pileOfCardsDictionary[thisPile]! = cards!
+                self.pileOfCards[thisPile]! = cards!
                 self.downloadImages(to: thisPile)
             }
         })
@@ -62,24 +89,11 @@ class CardGameModel: ObservableObject {
     }
     
     
-    func downloadImages(to pile: String) {
-        for index in 0..<pileOfCardsDictionary[pile]!.count {
-            let downloader = APIImageDownloader(withUrl: pileOfCardsDictionary[pile]![index].image)
-            downloader.getData(completionBlock: { image in
-                DispatchQueue.main.async {
-                    self.pileOfCardsDictionary[pile]![index].uiImage = image
-                }
-                
-            })
-        }
+    private func emptyPile(_ pile: String) {
+        let emptyPile: [Card] = []
+        pileOfCards[pile]! = emptyPile
     }
     
     
-    func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
-    
-    private func convertToCard(from decodedCard: DecodedCard, with id: Int) -> Card {
-        Card(id: id, code: decodedCard.code, image: decodedCard.image, value: decodedCard.value, suit: decodedCard.suit)
-    }
-    
-
+    private func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
 }

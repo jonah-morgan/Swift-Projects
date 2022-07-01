@@ -5,10 +5,9 @@
 //  Created by Jonah Morgan on 6/30/22.
 //
 
-import Foundation
 import SwiftUI
 
-struct DecodedDeck: Codable {
+struct APIDeck: Codable {
     
     let success: Bool
     let deck_id: String
@@ -21,22 +20,6 @@ struct DecodedDeck: Codable {
         print("Remaining Cards: \(self.remaining)")
         print("Shuffled: \(self.shuffled)\n")
     }
-}
-
-
-struct DecodedCard: Codable {
-    let code: String
-    let image: String
-    let value: String
-    let suit: String
-}
-
-
-struct DecodedDrawnCards: Codable {
-    let success: Bool
-    let deck_id: String
-    let cards: [DecodedCard]
-    let remaining: Int
 }
 
 
@@ -55,4 +38,20 @@ struct Card: Identifiable {
         self.value = value
         self.suit = suit
     }
+}
+
+
+struct APICard: Codable {
+    let code: String
+    let image: String
+    let value: String
+    let suit: String
+}
+
+
+struct APIDrawnCards: Codable {
+    let success: Bool
+    let deck_id: String
+    let cards: [APICard]
+    let remaining: Int
 }
