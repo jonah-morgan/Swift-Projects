@@ -9,11 +9,12 @@ import SwiftUI
 
 struct BlackJackGameView: View {
     @ObservedObject var CardGame = CardGameModel()
-
+    @EnvironmentObject var viewController: AppState
+    
     var body: some View {
         
         VStack {
-            Button(action: { CardGame.deal() }, label: {Text("Deal")} )
+            
             VStack{
                 ScrollView(.horizontal){
                     HStack{
@@ -35,6 +36,17 @@ struct BlackJackGameView: View {
                 }
             }
         }
+        Spacer()
+        HStack{
+            Button(action: { CardGame.deal() }, label: {Text("Deal").font(.largeTitle)} )
+                .padding()
+            Spacer()
+            Button(action: { CardGame.deal() }, label: {Text("Bet").font(.largeTitle)} )
+                .padding()
+            
+        }
+       
+        
     }
     
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD2733982870C68C00825C6D /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2733972870C68C00825C6D /* MainMenuView.swift */; };
+		AD27339A2870D44700825C6D /* BetMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2733992870D44700825C6D /* BetMenuView.swift */; };
 		ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD60286DD710006FED1A /* BlackJackApp.swift */; };
 		ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */; };
 		ADD1CD65286DD711006FED1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD64286DD711006FED1A /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD2733972870C68C00825C6D /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		AD2733992870D44700825C6D /* BetMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetMenuView.swift; sourceTree = "<group>"; };
 		ADD1CD5D286DD710006FED1A /* BlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD1CD60286DD710006FED1A /* BlackJackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackApp.swift; sourceTree = "<group>"; };
 		ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackGameView.swift; sourceTree = "<group>"; };
@@ -38,6 +42,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD27339B2870D48400825C6D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD2733972870C68C00825C6D /* MainMenuView.swift */,
+				ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */,
+				AD2733992870D44700825C6D /* BetMenuView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AD27339D2870D4D400825C6D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ADD1CD72286DD7EA006FED1A /* CardGameModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AD27339E2870D4DC00825C6D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				ADD1CD6E286DD7AF006FED1A /* APIDataDownloader.swift */,
+				ADD1CD70286DD7D0006FED1A /* APIStructures.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		ADD1CD54286DD710006FED1A = {
 			isa = PBXGroup;
 			children = (
@@ -58,10 +89,9 @@
 			isa = PBXGroup;
 			children = (
 				ADD1CD60286DD710006FED1A /* BlackJackApp.swift */,
-				ADD1CD6E286DD7AF006FED1A /* APIDataDownloader.swift */,
-				ADD1CD70286DD7D0006FED1A /* APIStructures.swift */,
-				ADD1CD72286DD7EA006FED1A /* CardGameModel.swift */,
-				ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */,
+				AD27339E2870D4DC00825C6D /* API */,
+				AD27339D2870D4D400825C6D /* Model */,
+				AD27339B2870D48400825C6D /* Views */,
 				ADD1CD64286DD711006FED1A /* Assets.xcassets */,
 				ADD1CD66286DD711006FED1A /* Preview Content */,
 			);
@@ -146,10 +176,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD2733982870C68C00825C6D /* MainMenuView.swift in Sources */,
 				ADD1CD71286DD7D0006FED1A /* APIStructures.swift in Sources */,
 				ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */,
 				ADD1CD73286DD7EA006FED1A /* CardGameModel.swift in Sources */,
 				ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */,
+				AD27339A2870D44700825C6D /* BetMenuView.swift in Sources */,
 				ADD1CD6F286DD7AF006FED1A /* APIDataDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,11 +311,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BlackJack/Preview Content\"";
+				DEVELOPMENT_TEAM = 59Z2BYR2P9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -307,11 +341,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BlackJack/Preview Content\"";
+				DEVELOPMENT_TEAM = 59Z2BYR2P9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
