@@ -8,6 +8,10 @@
 import SwiftUI
 
 class CardGameModel: ObservableObject {
+    init() {
+        newDeck()
+    }
+    
     // Public
     @Published var pileOfCards: [String:[Card]] = [
         "dealersPile": [],
@@ -15,21 +19,28 @@ class CardGameModel: ObservableObject {
     ]
     @Published var playerDollarAmount = 500
     @Published var betAmount = 0
+    @Published var isDealing = false
+    
     
     func deal() {
-        print(String(self.pileOfCards["playersPile"]!.count))
-        print("dealing")
-        self.newDeck()
-        while(self.deck == nil) {}
         drawCards(to: "playersPile", amount: 2)
+        Thread.sleep(forTimeInterval: 0.1)
         drawCards(to: "dealersPile", amount: 2)
-        print("dealt")
     }
+    
     
     func betMoney(amount: Int) {
         if amount <= playerDollarAmount {
             playerDollarAmount -= amount
             betAmount += amount
+        }
+    }
+    
+    
+    func takeBackMoney(amount: Int) {
+        if amount <= betAmount {
+            playerDollarAmount += amount
+            betAmount -= amount
         }
     }
     
