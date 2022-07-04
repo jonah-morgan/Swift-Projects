@@ -13,13 +13,24 @@ class CardGameModel: ObservableObject {
         "dealersPile": [],
         "playersPile": []
     ]
-    
+    @Published var playerDollarAmount = 500
+    @Published var betAmount = 0
     
     func deal() {
+        print(String(self.pileOfCards["playersPile"]!.count))
+        print("dealing")
         self.newDeck()
         while(self.deck == nil) {}
         drawCards(to: "playersPile", amount: 2)
         drawCards(to: "dealersPile", amount: 2)
+        print("dealt")
+    }
+    
+    func betMoney(amount: Int) {
+        if amount <= playerDollarAmount {
+            playerDollarAmount -= amount
+            betAmount += amount
+        }
     }
     
     
@@ -65,7 +76,6 @@ class CardGameModel: ObservableObject {
             
         }
         var cards = pileOfCards[thisPile]
-        
         var cardURL = drawCardURL
         cardURL = cardURL.replacingOccurrences(of: "<<deck_id>>", with: deck!.deck_id)
         cardURL += String(amount)
@@ -99,13 +109,13 @@ class CardGameModel: ObservableObject {
     private func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
     
     
+    // Found this function off of stack overflow
     private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
         let size = image.size
         
         let widthRatio  = targetSize.width  / size.width
         let heightRatio = targetSize.height / size.height
         
-        // Figure out what our orientation is, and use that to form the rectangle
         var newSize: CGSize
         if(widthRatio > heightRatio) {
             newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
@@ -113,10 +123,8 @@ class CardGameModel: ObservableObject {
             newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
         }
         
-        // This is the rect that we've calculated out and this is what is actually used below
         let rect = CGRect(origin: .zero, size: newSize)
         
-        // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()

@@ -8,30 +8,21 @@
 import SwiftUI
 
 class AppState: ObservableObject {
-    @Published var hasStarted: Bool
-    @Published var isDealing: Bool
-    
-    init(hasStarted: Bool){
-        self.hasStarted = hasStarted
-    }
+    @Published var hasStarted = false
+    @Published var isDealing = false
 }
 
 
 @main
 struct BlackJackApp: App {
-    @ObservedObject var viewController = AppState(hasStarted: false)
+    @ObservedObject var viewController = AppState()
+    var dollarAmount = 0
     
     var body: some Scene {
         WindowGroup {
             if viewController.hasStarted {
-                if viewController.isDealing {
-                    BlackJackGameView()
-                        .environmentObject(viewController)
-                } else {
-                    BetMenuView()
-                        .environmentObject(viewController)
-                }
-                
+                BlackJackGameView()
+                    .environmentObject(viewController)
             } else {
                 MainMenuView()
                     .environmentObject(viewController)

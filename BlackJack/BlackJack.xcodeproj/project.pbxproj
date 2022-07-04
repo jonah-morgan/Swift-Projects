@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AD2733982870C68C00825C6D /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2733972870C68C00825C6D /* MainMenuView.swift */; };
-		AD27339A2870D44700825C6D /* BetMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2733992870D44700825C6D /* BetMenuView.swift */; };
 		ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD60286DD710006FED1A /* BlackJackApp.swift */; };
 		ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */; };
 		ADD1CD65286DD711006FED1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD64286DD711006FED1A /* Assets.xcassets */; };
@@ -20,14 +19,13 @@
 
 /* Begin PBXFileReference section */
 		AD2733972870C68C00825C6D /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
-		AD2733992870D44700825C6D /* BetMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetMenuView.swift; sourceTree = "<group>"; };
 		ADD1CD5D286DD710006FED1A /* BlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD1CD60286DD710006FED1A /* BlackJackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackApp.swift; sourceTree = "<group>"; };
 		ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackGameView.swift; sourceTree = "<group>"; };
 		ADD1CD64286DD711006FED1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADD1CD67286DD711006FED1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ADD1CD6E286DD7AF006FED1A /* APIDataDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataDownloader.swift; sourceTree = "<group>"; };
-		ADD1CD70286DD7D0006FED1A /* APIStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructures.swift; sourceTree = "<group>"; };
+		ADD1CD70286DD7D0006FED1A /* APIStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructures.swift; sourceTree = "<group>"; usesTabs = 1; };
 		ADD1CD72286DD7EA006FED1A /* CardGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,7 +45,6 @@
 			children = (
 				AD2733972870C68C00825C6D /* MainMenuView.swift */,
 				ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */,
-				AD2733992870D44700825C6D /* BetMenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,7 +178,6 @@
 				ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */,
 				ADD1CD73286DD7EA006FED1A /* CardGameModel.swift in Sources */,
 				ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */,
-				AD27339A2870D44700825C6D /* BetMenuView.swift in Sources */,
 				ADD1CD6F286DD7AF006FED1A /* APIDataDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
