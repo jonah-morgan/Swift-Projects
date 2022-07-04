@@ -9,7 +9,6 @@ import SwiftUI
 
 class AppState: ObservableObject {
     @Published var hasStarted = false
-    @Published var isDealing = false
 }
 
 

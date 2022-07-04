@@ -11,7 +11,11 @@ struct BlackJackGameView: View {
     @ObservedObject var CardGame = CardGameModel()
     
     var body: some View {
-        gameView
+        ZStack {
+            Color.green.ignoresSafeArea()
+            gameView
+        }
+        
     }
     
     var buttonRect: some View {
@@ -36,7 +40,9 @@ struct BlackJackGameView: View {
                     CardGame.isDealing = true
                 }, label: {Text("Deal").font(.largeTitle)} )
                     .padding()
+                Text("Your Chips").font(.largeTitle)
                 moneyButtonLayout(CardGame, type: "buying")
+                Text("Dealer Chips").font(.largeTitle)
                 moneyButtonLayout(CardGame, type: "selling")
             }
             Spacer()
@@ -74,7 +80,8 @@ struct BlackJackGameView: View {
             Text("Bet $: \(CardGame.betAmount)")
         }
             .font(.largeTitle)
-            .foregroundColor(.green)
+            .foregroundColor(.yellow)
+            .padding()
     }
 }
 
@@ -109,28 +116,28 @@ struct moneyButtonLayout: View {
         self.model = model
     }
     
-    var amounts = [1, 5, 10, 50, 100]
+    let amounts = [1, 5, 10, 50, 100]
+    let index = [ 0, 1, 2, 3, 4 ]
+    let colors: [Color] = [.gray, .red, .indigo, .blue, .pink]
     
     var body: some View {
         HStack {
-            ForEach(amounts, id: \.self) { amount in
-                if model.playerDollarAmount >= amount {
-                    Button(action: {
-                        if self.type == "buying" {
-                            model.betMoney(amount: amount)
-                        } else {
-                            model.takeBackMoney(amount: amount)
-                        }
-                        
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                        .foregroundColor(.yellow)
-                                        .frame(width: 50, height: 50, alignment: .center)
-                            Text(String(amount))
-                        }
-                    })
-                }
+            ForEach(index, id: \.self) { index in
+                Button(action: {
+                    if self.type == "buying" {
+                        model.betMoney(amount: amounts[index])
+                    } else {
+                        model.takeBackMoney(amount: amounts[index])
+                    }
+                    
+                }, label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                                    .foregroundColor(colors[index])
+                                    .frame(width: 50, height: 50, alignment: .center)
+                        Text(String(amounts[index])).foregroundColor(.yellow)
+                    }
+                })
             }
         }
     }
