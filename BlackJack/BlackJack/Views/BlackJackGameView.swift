@@ -14,12 +14,12 @@ struct BlackJackGameView: View {
         gameView
     }
     
-    var rect: some View {
+    var buttonRect: some View {
         RoundedRectangle(cornerRadius: 20)
-                    .foregroundColor(.yellow)
-                    .frame(width: 100, height: 50, alignment: .center)
+            .padding()
+            .frame(width: 150, height: 100, alignment: .center)
+            .foregroundColor(.blue)
     }
-    
     
     var gameView: some View {
         VStack {
@@ -28,6 +28,7 @@ struct BlackJackGameView: View {
                     pileOfCardsView(CardGame, type: "dealersPile")
                     Spacer(minLength: 20)
                     pileOfCardsView(CardGame, type: "playersPile")
+                    hitStandView
                 }
             } else {
                 Button(action: {
@@ -40,6 +41,29 @@ struct BlackJackGameView: View {
             }
             Spacer()
             moneyStatsView
+        }
+    }
+    
+    var hitStandView: some View {
+        HStack {
+            ZStack {
+                buttonRect
+                Button(action: {
+                    CardGame.hit()
+                }, label: {
+                    Text("Hit")
+                        .foregroundColor(.yellow)
+                }).font(.largeTitle)
+            }
+            ZStack {
+                buttonRect
+                Button(action: {
+                    CardGame.stand()
+                }, label: {
+                    Text("Stand")
+                        .foregroundColor(.yellow)
+                }).font(.largeTitle)
+            }
         }
     }
     
@@ -68,7 +92,7 @@ struct pileOfCardsView: View {
         HStack{
             ForEach(model.pileOfCards[type]!) { card in
                 if card.uiImage != nil {
-                    Image(uiImage: card.uiImage!).frame(width: 150, height: 200, alignment: .center)
+                    Image(uiImage: card.uiImage!).frame(width: 100, height: 200, alignment: .center)
                 }
             }
         }.padding()

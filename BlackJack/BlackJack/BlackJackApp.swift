@@ -27,7 +27,6 @@ struct BlackJackApp: App {
                 MainMenuView()
                     .environmentObject(viewController)
             }
-            
         }
     }
 }

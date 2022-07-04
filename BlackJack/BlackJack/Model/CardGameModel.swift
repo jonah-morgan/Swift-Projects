@@ -21,11 +21,26 @@ class CardGameModel: ObservableObject {
     @Published var betAmount = 0
     @Published var isDealing = false
     
+    // work on figuring out values for when aces are involved
+    // maybe an enumeration?
+    private var playerPileValue: [Int] = []
+    private var dealerPileValue: [Int] = []
+    
     
     func deal() {
-        drawCards(to: "playersPile", amount: 2)
+        drawCards(to: "playersPile", amount: 1)
         Thread.sleep(forTimeInterval: 0.1)
-        drawCards(to: "dealersPile", amount: 2)
+        drawCards(to: "dealersPile", amount: 1)
+    }
+    
+    
+    func hit() {
+        drawCards(to: "playersPile", amount: 1)
+    }
+    
+    
+    func stand() {
+        drawCards(to: "dealersPile", amount: 1)
     }
     
     
@@ -50,7 +65,6 @@ class CardGameModel: ObservableObject {
     private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
     private var deck: APIDeck?
     private let maxDrawSize: Int = 52
-    
     
     private func newDeck() {
         let downloader = APIDataDownloader<APIDeck>(withUrl: newDeckURL)
@@ -97,11 +111,10 @@ class CardGameModel: ObservableObject {
             for card in newCards.cards {
                 let id: Int?
                 if cards!.count == 0 { id = 0 } else { id = cards!.count }
-                
+                print(card.value)
                 cards!.append(self.convertToCard(from: card, with: id!))
                 self.deck!.remaining -= 1
             }
-            
             DispatchQueue.main.async {
                 self.pileOfCards[thisPile]! = cards!
                 self.downloadImages(to: thisPile)
@@ -120,7 +133,6 @@ class CardGameModel: ObservableObject {
     private func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
     
     
-    // Found this function off of stack overflow
     private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
         let size = image.size
         
