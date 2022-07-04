@@ -8,6 +8,7 @@
 import SwiftUI
 
 class CardGameModel: ObservableObject {
+    
     init() {
         newDeck()
     }
@@ -20,11 +21,7 @@ class CardGameModel: ObservableObject {
     @Published var playerDollarAmount = 500
     @Published var betAmount = 0
     @Published var isDealing = false
-    
-    // work on figuring out values for when aces are involved
-    // maybe an enumeration?
-    private var playerPileValue: [Int] = []
-    private var dealerPileValue: [Int] = []
+    @Published var hasLost = false
     
     
     func deal() {
@@ -35,7 +32,24 @@ class CardGameModel: ObservableObject {
     
     
     func hit() {
-        drawCards(to: "playersPile", amount: 1)
+        if pileValues["playersPile"]![0] < 21{
+            drawCards(to: "playersPile", amount: 1)
+            
+            // ((((FIX))))  make it so we don't have to wait?
+            Thread.sleep(forTimeInterval: 0.5)
+            
+            let valueOne = pileValues["playersPile"]![0]
+            let valueTwo = pileValues["playersPile"]![1]
+            
+            if valueOne > 21 {
+                // bust function
+                print("busted")
+                gameLost()
+            } else if valueOne == 21 || valueTwo == 21 {
+                // checkWin function
+                print("checking if won...")
+            }
+        }
     }
     
     
@@ -65,6 +79,10 @@ class CardGameModel: ObservableObject {
     private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
     private var deck: APIDeck?
     private let maxDrawSize: Int = 52
+    private var pileValues = [
+        "dealersPile": [0, 0],
+        "playersPile": [0, 0]
+    ]
     
     private func newDeck() {
         let downloader = APIDataDownloader<APIDeck>(withUrl: newDeckURL)
@@ -106,15 +124,17 @@ class CardGameModel: ObservableObject {
         cardURL += String(amount)
         
         let newCardCommunicator = APIDataDownloader<APIDrawnCards>(withUrl: cardURL)
-        newCardCommunicator.getData( completionBlock: { newCards in
+        newCardCommunicator.getData( completionBlock: { [self] newCards in
             
             for card in newCards.cards {
                 let id: Int?
                 if cards!.count == 0 { id = 0 } else { id = cards!.count }
-                print(card.value)
                 cards!.append(self.convertToCard(from: card, with: id!))
+                
+                self.updateValue(for: thisPile, with: card)
                 self.deck!.remaining -= 1
             }
+            
             DispatchQueue.main.async {
                 self.pileOfCards[thisPile]! = cards!
                 self.downloadImages(to: thisPile)
@@ -123,10 +143,32 @@ class CardGameModel: ObservableObject {
         
     }
     
+    private func updateValue(for pile: String, with card: APICard) {
+        
+        switch card.value {
+        case "ACE":
+            pileValues[pile]![0] += 1
+            pileValues[pile]![1] += 11
+            
+        case "KING", "QUEEN", "JACK":
+            pileValues[pile]![0] += 10
+            pileValues[pile]![1] += 10
+            
+        default:
+            pileValues[pile]![0] += Int(card.value)!
+            pileValues[pile]![1] += Int(card.value)!
+        }
+    }
     
-    private func emptyPile(_ pile: String) {
-        let emptyPile: [Card] = []
-        pileOfCards[pile]! = emptyPile
+    private func emptyValues() {
+        pileValues["playersPile"] = [0, 0]
+        pileValues["dealersPile"] = [0, 0]
+    }
+    
+    private func gameLost() {
+        hasLost = true
+        emptyValues()
+        betAmount = 0
     }
     
     

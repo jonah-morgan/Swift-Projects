@@ -18,6 +18,10 @@ struct BlackJackGameView: View {
         
     }
     
+    var lostView: some View {
+        Text("you lost homie...").font(.largeTitle)
+    }
+    
     var buttonRect: some View {
         RoundedRectangle(cornerRadius: 20)
             .padding()
@@ -32,6 +36,12 @@ struct BlackJackGameView: View {
                     pileOfCardsView(CardGame, type: "dealersPile")
                     Spacer(minLength: 20)
                     pileOfCardsView(CardGame, type: "playersPile")
+                    if CardGame.hasLost{
+                        VStack {
+                            lostView
+                            Text(String(CardGame.pileOfCards["playersPile"]!.count))
+                        }
+                    }
                     hitStandView
                 }
             } else {

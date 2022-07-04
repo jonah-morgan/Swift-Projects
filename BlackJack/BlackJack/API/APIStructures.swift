@@ -38,6 +38,12 @@ struct Card: Identifiable {
         self.value = value
         self.suit = suit
     }
+	
+	subscript(index: Int) -> Int {
+		get {
+			return self.id
+		}
+	}
 }
 
 
