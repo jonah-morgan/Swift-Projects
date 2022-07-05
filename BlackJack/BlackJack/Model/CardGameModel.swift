@@ -34,21 +34,6 @@ class CardGameModel: ObservableObject {
     func hit() {
         if pileValues["playersPile"]![0] < 21{
             drawCards(to: "playersPile", amount: 1)
-            
-            // ((((FIX))))  make it so we don't have to wait?
-            Thread.sleep(forTimeInterval: 0.5)
-            
-            let valueOne = pileValues["playersPile"]![0]
-            let valueTwo = pileValues["playersPile"]![1]
-            
-            if valueOne > 21 {
-                // bust function
-                print("busted")
-                gameLost()
-            } else if valueOne == 21 || valueTwo == 21 {
-                // checkWin function
-                print("checking if won...")
-            }
         }
     }
     
@@ -137,7 +122,20 @@ class CardGameModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.pileOfCards[thisPile]! = cards!
-                self.downloadImages(to: thisPile)
+                self.checkIfWon()
+                if !self.hasLost {
+                    self.downloadImages(to: thisPile)
+                } else {
+                    self.gameLost {
+                        DispatchQueue.global(qos: .background).async {
+                            Thread.sleep(forTimeInterval: 1.0)
+                            DispatchQueue.main.async {
+                                self.hasLost = false
+                                self.isDealing = false
+                            }
+                        }
+                    }
+                }
             }
         })
         
@@ -165,12 +163,21 @@ class CardGameModel: ObservableObject {
         pileValues["dealersPile"] = [0, 0]
     }
     
-    private func gameLost() {
-        hasLost = true
+    private func gameLost( completionHandler: @escaping () -> Void ) {
         emptyValues()
+        pileOfCards["playersPile"]! = []
+        pileOfCards["dealersPile"]! = []
         betAmount = 0
+        completionHandler()
     }
     
+    
+    private func checkIfWon() {
+        if pileValues["playersPile"]![0] > 21 {
+            self.hasLost = true
+            print("Lost Here")
+        }
+    }
     
     private func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
     
