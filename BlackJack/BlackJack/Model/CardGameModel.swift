@@ -126,36 +126,22 @@ class CardGameModel: ObservableObject {
                 self.pileOfCards[thisPile]! = cards!
                 self.checkIfWon()
                 
-                if !self.hasLost {
+                if !self.hasLost && !self.hasWon {
                     self.downloadImages(to: thisPile)
-                } else if self.hasWon {
-                    self.resetGame {
-                        DispatchQueue.global(qos: .background).async {
-                            Thread.sleep(forTimeInterval: 1.0)
-                            self.playerDollarAmount += self.betAmount
-                            DispatchQueue.main.async {
-                                self.hasWon = false
-                            }
-                            
-                        }
-                        
-                        
-                    }
                 }
                 
-                else if self.hasLost {
-                    self.resetGame {
-                        DispatchQueue.global(qos: .background).async {
-                            Thread.sleep(forTimeInterval: 1.0)
-                            DispatchQueue.main.async {
-                                self.hasLost = false
-                            }
-                        }
-                    }
+                
+                if self.hasLost {
+                    self.resetGame()
                 }
+                
+                else if self.hasWon {
+                    self.playerDollarAmount += 2 * self.betAmount
+                    self.resetGame()
+                }
+                
                 
                 else if self.isStanding{
-                    // do something
                     if self.pileValues["dealersPile"]![0] <= 17{
                         DispatchQueue.global(qos: .background).async {
                             Thread.sleep(forTimeInterval: 1.0)
@@ -193,16 +179,18 @@ class CardGameModel: ObservableObject {
     }
     
         
-    private func resetGame( completionHandler: @escaping () -> Void) {
+    private func resetGame() {
         DispatchQueue.main.async {
+            Thread.sleep(forTimeInterval: 1.0)
             self.emptyValues()
             self.pileOfCards["playersPile"]! = []
             self.pileOfCards["dealersPile"]! = []
             self.isDealing = false
             self.isStanding = false
+            self.hasWon = false
+            self.hasLost = false
+            self.betAmount = 0
         }
-        completionHandler()
-        self.betAmount = 0
     }
     
     
