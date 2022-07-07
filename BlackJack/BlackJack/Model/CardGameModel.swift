@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 class CardGameModel: ObservableObject {
     
     init() {
@@ -24,6 +25,7 @@ class CardGameModel: ObservableObject {
     @Published var hasLost = false
     @Published var hasWon = false
     @Published var isStanding = false
+    @Published var hasPushed = false
     
     
     func deal() {
@@ -40,8 +42,10 @@ class CardGameModel: ObservableObject {
     
     
     func stand() {
-        self.isStanding = true
-        self.drawCards(to: "dealersPile", amount: 1)
+        if !self.isStanding{
+            self.isStanding = true
+            self.drawCards(to: "dealersPile", amount: 1)
+        }
     }
     
     
@@ -125,11 +129,9 @@ class CardGameModel: ObservableObject {
             DispatchQueue.main.async {
                 self.pileOfCards[thisPile]! = cards!
                 self.checkIfWon()
-                
-                if !self.hasLost && !self.hasWon {
-                    self.downloadImages(to: thisPile)
-                }
-                
+                print(self.hasWon)
+                print(self.hasLost)
+                self.downloadImages(to: thisPile)
                 
                 if self.hasLost {
                     self.resetGame()
@@ -138,8 +140,10 @@ class CardGameModel: ObservableObject {
                 else if self.hasWon {
                     self.playerDollarAmount += 2 * self.betAmount
                     self.resetGame()
+                } else if self.hasPushed {
+                    self.playerDollarAmount += self.betAmount
+                    self.resetGame()
                 }
-                
                 
                 else if self.isStanding{
                     if self.pileValues["dealersPile"]![0] <= 17{
@@ -180,26 +184,35 @@ class CardGameModel: ObservableObject {
     
         
     private func resetGame() {
-        DispatchQueue.main.async {
-            Thread.sleep(forTimeInterval: 1.0)
-            self.emptyValues()
-            self.pileOfCards["playersPile"]! = []
-            self.pileOfCards["dealersPile"]! = []
-            self.isDealing = false
-            self.isStanding = false
-            self.hasWon = false
-            self.hasLost = false
-            self.betAmount = 0
+        DispatchQueue.global(qos: .background).async {
+            Thread.sleep(forTimeInterval: 2.0)
+            DispatchQueue.main.async {
+                self.emptyValues()
+                self.pileOfCards["playersPile"]! = []
+                self.pileOfCards["dealersPile"]! = []
+                self.betAmount = 0
+                self.hasWon = false
+                self.hasLost = false
+                self.hasPushed = false
+                self.isDealing = false
+                self.isStanding = false
+            }
         }
+        print("everythings reset")
     }
     
     
     private func checkIfWon() {
-        let pVals = pileValues["playersPile"]!
-        let dVals = pileValues["dealersPile"]!
+        let pVals = self.pileValues["playersPile"]!
+        let dVals = self.pileValues["dealersPile"]!
         
         let maxPValue = max( pVals[0], pVals[1] )
         let maxDValue = max( dVals[0], dVals[1] )
+        
+        print("pVals = \(pVals)\n")
+        print("dVals = \(dVals)\n")
+        print("maxP = \(maxPValue)\n")
+        print("maxD = \(maxPValue)\n\n\n")
         // player busted
         if pVals[0] > 21 {
             self.hasLost = true
@@ -217,6 +230,14 @@ class CardGameModel: ObservableObject {
                     maxDValue < maxPValue {
             self.hasWon = true
         }
+        
+        else if self.isStanding && dVals[0] > 17 &&
+                    maxPValue == maxDValue {
+            self.hasPushed = true
+        }
+        
+        print(self.hasWon)
+        print(self.hasLost)
     }
     
     

@@ -22,7 +22,16 @@ struct BlackJackGameView: View {
     
     var lostView: some View {
         VStack {
-            Text("you lost \(CardGame.betAmount)")
+            Text("You lost \(CardGame.betAmount)!")
+                .font(.largeTitle)
+        }
+        
+    }
+    
+    
+    var pushView: some View {
+        VStack {
+            Text("You've Pushed!")
                 .font(.largeTitle)
         }
         
@@ -31,7 +40,7 @@ struct BlackJackGameView: View {
     
     var wonView: some View {
         VStack {
-            Text("you won \(CardGame.betAmount)")
+            Text("You won \(CardGame.betAmount)!")
                 .font(.largeTitle)
         }
         
@@ -55,6 +64,7 @@ struct BlackJackGameView: View {
                     pileOfCardsView(CardGame, type: "playersPile")
                     if CardGame.hasLost{ lostView }
                     else if CardGame.hasWon { wonView }
+                    else if CardGame.hasPushed { pushView }
                     hitStandView
                 }
             } else {
