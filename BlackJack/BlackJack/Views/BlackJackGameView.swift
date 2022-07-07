@@ -10,6 +10,7 @@ import SwiftUI
 struct BlackJackGameView: View {
     @ObservedObject var CardGame = CardGameModel()
     
+    
     var body: some View {
         ZStack {
             Color.green.ignoresSafeArea()
@@ -18,9 +19,24 @@ struct BlackJackGameView: View {
         
     }
     
+    
     var lostView: some View {
-        Text("you lost homie...").font(.largeTitle)
+        VStack {
+            Text("you lost \(CardGame.betAmount)")
+                .font(.largeTitle)
+        }
+        
     }
+    
+    
+    var wonView: some View {
+        VStack {
+            Text("you won \(CardGame.betAmount)")
+                .font(.largeTitle)
+        }
+        
+    }
+    
     
     var buttonRect: some View {
         RoundedRectangle(cornerRadius: 20)
@@ -29,6 +45,7 @@ struct BlackJackGameView: View {
             .foregroundColor(.blue)
     }
     
+    
     var gameView: some View {
         VStack {
             if CardGame.isDealing {
@@ -36,12 +53,8 @@ struct BlackJackGameView: View {
                     pileOfCardsView(CardGame, type: "dealersPile")
                     Spacer(minLength: 20)
                     pileOfCardsView(CardGame, type: "playersPile")
-                    if CardGame.hasLost{
-                        VStack {
-                            lostView
-                            Text(String(CardGame.pileOfCards["playersPile"]!.count))
-                        }
-                    }
+                    if CardGame.hasLost{ lostView }
+                    else if CardGame.hasWon { wonView }
                     hitStandView
                 }
             } else {
@@ -59,6 +72,7 @@ struct BlackJackGameView: View {
             moneyStatsView
         }
     }
+    
     
     var hitStandView: some View {
         HStack {
@@ -82,6 +96,7 @@ struct BlackJackGameView: View {
             }
         }
     }
+    
     
     var moneyStatsView: some View {
         HStack {

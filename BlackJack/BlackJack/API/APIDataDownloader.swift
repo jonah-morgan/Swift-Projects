@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct APIDataDownloader<T: Codable> {
+class APIDataDownloader<T: Codable> {
     let url: String
     init(withUrl url: String) {
         self.url = url
@@ -25,7 +25,10 @@ struct APIDataDownloader<T: Codable> {
             var result: T?
             do {
                 try result = JSONDecoder().decode(T.self, from: data)
-                completionBlock(result!)
+                DispatchQueue.main.async {
+                    completionBlock(result!)
+                }
+                
             } catch {
                 print("Failed to convert \(error.localizedDescription)")
             }
@@ -35,7 +38,7 @@ struct APIDataDownloader<T: Codable> {
 }
 
 
-struct APIImageDownloader{
+class APIImageDownloader{
     let url: String
     init(withUrl url: String) {
         self.url = url

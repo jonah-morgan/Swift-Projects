@@ -22,24 +22,26 @@ class CardGameModel: ObservableObject {
     @Published var betAmount = 0
     @Published var isDealing = false
     @Published var hasLost = false
+    @Published var hasWon = false
+    @Published var isStanding = false
     
     
     func deal() {
         drawCards(to: "playersPile", amount: 1)
-        Thread.sleep(forTimeInterval: 0.1)
         drawCards(to: "dealersPile", amount: 1)
     }
     
     
     func hit() {
         if pileValues["playersPile"]![0] < 21{
-            drawCards(to: "playersPile", amount: 1)
+            self.drawCards(to: "playersPile", amount: 1)
         }
     }
     
     
     func stand() {
-        drawCards(to: "dealersPile", amount: 1)
+        self.isStanding = true
+        self.drawCards(to: "dealersPile", amount: 1)
     }
     
     
@@ -64,10 +66,11 @@ class CardGameModel: ObservableObject {
     private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
     private var deck: APIDeck?
     private let maxDrawSize: Int = 52
-    private var pileValues = [
+    @Published private var pileValues = [
         "dealersPile": [0, 0],
         "playersPile": [0, 0]
     ]
+    
     
     private func newDeck() {
         let downloader = APIDataDownloader<APIDeck>(withUrl: newDeckURL)
@@ -100,9 +103,9 @@ class CardGameModel: ObservableObject {
             print("not enough cards in deck")
             return
         }
-        while self.deck!.remaining < amount {
-            
-        }
+        
+        while self.deck!.remaining < amount {}
+        
         var cards = pileOfCards[thisPile]
         var cardURL = drawCardURL
         cardURL = cardURL.replacingOccurrences(of: "<<deck_id>>", with: deck!.deck_id)
@@ -115,7 +118,6 @@ class CardGameModel: ObservableObject {
                 let id: Int?
                 if cards!.count == 0 { id = 0 } else { id = cards!.count }
                 cards!.append(self.convertToCard(from: card, with: id!))
-                
                 self.updateValue(for: thisPile, with: card)
                 self.deck!.remaining -= 1
             }
@@ -123,17 +125,43 @@ class CardGameModel: ObservableObject {
             DispatchQueue.main.async {
                 self.pileOfCards[thisPile]! = cards!
                 self.checkIfWon()
+                
                 if !self.hasLost {
                     self.downloadImages(to: thisPile)
-                } else {
-                    self.gameLost {
+                } else if self.hasWon {
+                    self.resetGame {
+                        DispatchQueue.global(qos: .background).async {
+                            Thread.sleep(forTimeInterval: 1.0)
+                            self.playerDollarAmount += self.betAmount
+                            DispatchQueue.main.async {
+                                self.hasWon = false
+                            }
+                            
+                        }
+                        
+                        
+                    }
+                }
+                
+                else if self.hasLost {
+                    self.resetGame {
                         DispatchQueue.global(qos: .background).async {
                             Thread.sleep(forTimeInterval: 1.0)
                             DispatchQueue.main.async {
                                 self.hasLost = false
-                                self.isDealing = false
                             }
                         }
+                    }
+                }
+                
+                else if self.isStanding{
+                    // do something
+                    if self.pileValues["dealersPile"]![0] <= 17{
+                        DispatchQueue.global(qos: .background).async {
+                            Thread.sleep(forTimeInterval: 1.0)
+                            self.drawCards(to: "dealersPile", amount: 1)
+                        }
+                        
                     }
                 }
             }
@@ -141,8 +169,8 @@ class CardGameModel: ObservableObject {
         
     }
     
+    
     private func updateValue(for pile: String, with card: APICard) {
-        
         switch card.value {
         case "ACE":
             pileValues[pile]![0] += 1
@@ -158,26 +186,51 @@ class CardGameModel: ObservableObject {
         }
     }
     
+    
     private func emptyValues() {
-        pileValues["playersPile"] = [0, 0]
-        pileValues["dealersPile"] = [0, 0]
+        self.pileValues["playersPile"] = [0, 0]
+        self.pileValues["dealersPile"] = [0, 0]
     }
     
-    private func gameLost( completionHandler: @escaping () -> Void ) {
-        emptyValues()
-        pileOfCards["playersPile"]! = []
-        pileOfCards["dealersPile"]! = []
-        betAmount = 0
+        
+    private func resetGame( completionHandler: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            self.emptyValues()
+            self.pileOfCards["playersPile"]! = []
+            self.pileOfCards["dealersPile"]! = []
+            self.isDealing = false
+            self.isStanding = false
+        }
         completionHandler()
+        self.betAmount = 0
     }
     
     
     private func checkIfWon() {
-        if pileValues["playersPile"]![0] > 21 {
+        let pVals = pileValues["playersPile"]!
+        let dVals = pileValues["dealersPile"]!
+        
+        let maxPValue = max( pVals[0], pVals[1] )
+        let maxDValue = max( dVals[0], dVals[1] )
+        // player busted
+        if pVals[0] > 21 {
             self.hasLost = true
-            print("Lost Here")
+        }
+        // dealer busted
+        else if dVals[0] > 21 {
+            self.hasWon = true
+        }
+        // both dealers values are higher
+        else if self.isStanding && maxDValue > maxPValue {
+            self.hasLost = true
+        }
+        // dealer is above 17 and is still lower than the player
+        else if self.isStanding && dVals[0] > 17 &&
+                    maxDValue < maxPValue {
+            self.hasWon = true
         }
     }
+    
     
     private func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
     
