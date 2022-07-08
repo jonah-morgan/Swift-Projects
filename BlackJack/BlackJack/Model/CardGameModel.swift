@@ -19,17 +19,20 @@ class CardGameModel: ObservableObject {
         "dealersPile": [],
         "playersPile": []
     ]
-    @Published var playerDollarAmount = 500
+    @Published var playerDollarAmount = 10000
     @Published var betAmount = 0
     @Published var isDealing = false
     @Published var hasLost = false
     @Published var hasWon = false
     @Published var isStanding = false
     @Published var hasPushed = false
+    @Published var isBelowMinimumBet = false
+    let minBet = 5
     
     
     func deal() {
         drawCards(to: "playersPile", amount: 1)
+        Thread.sleep(forTimeInterval: 0.4)
         drawCards(to: "dealersPile", amount: 1)
     }
     
@@ -92,7 +95,7 @@ class CardGameModel: ObservableObject {
             let downloader = APIImageDownloader(withUrl: pileOfCards[pile]![index].image)
             downloader.getData(completionBlock: { image in
                 DispatchQueue.main.async {
-                    let newImage = self.resizeImage(image: image, targetSize: CGSize(width: 200, height: 200))
+                    let newImage = self.resizeImage(image: image, targetSize: CGSize(width: 150, height: 150))
                     self.pileOfCards[pile]![index].uiImage = newImage
                 }
                 
@@ -120,6 +123,7 @@ class CardGameModel: ObservableObject {
             
             for card in newCards.cards {
                 let id: Int?
+                print(card.image)
                 if cards!.count == 0 { id = 0 } else { id = cards!.count }
                 cards!.append(self.convertToCard(from: card, with: id!))
                 self.updateValue(for: thisPile, with: card)
@@ -154,6 +158,11 @@ class CardGameModel: ObservableObject {
                         
                     }
                 }
+                
+                else if self.pileValues[thisPile]![0] == 21 ||
+                            self.pileValues[thisPile]![1] == 21 {
+                    self.stand()
+                }
             }
         })
         
@@ -174,6 +183,26 @@ class CardGameModel: ObservableObject {
             pileValues[pile]![0] += Int(card.value)!
             pileValues[pile]![1] += Int(card.value)!
         }
+        
+        if pileValues[pile]![0] > 11 && hasAce(in: pile) {
+            var aceCount = 0
+            for card in pileOfCards[pile]! {
+                if card.value == "ACE" {
+                    aceCount += 1
+                    if aceCount > 1 || pileValues[pile]![0] > 11 {
+                        pileValues[pile]![1] -= 10
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    private func hasAce(in pile: String) -> Bool {
+        for card in pileOfCards[pile]! {
+            if card.value == "ACE" { return true }
+        }
+        return false
     }
     
     
@@ -196,6 +225,7 @@ class CardGameModel: ObservableObject {
                 self.hasPushed = false
                 self.isDealing = false
                 self.isStanding = false
+                self.isBelowMinimumBet = false
             }
         }
         print("everythings reset")

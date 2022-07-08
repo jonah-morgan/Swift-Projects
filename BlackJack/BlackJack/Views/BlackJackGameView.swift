@@ -20,32 +20,80 @@ struct BlackJackGameView: View {
     }
     
     
-    var lostView: some View {
-        VStack {
-            Text("You lost \(CardGame.betAmount)!")
-                .font(.largeTitle)
+    var gameView: some View {
+        ScrollView(.vertical){
+            VStack {
+                if CardGame.isDealing {
+                    VStack{
+                        PileOfCardsView(CardGame, type: "dealersPile")
+                        Spacer(minLength: 20)
+                        PileOfCardsView(CardGame, type: "playersPile")
+                        if CardGame.hasLost{ TextView(string: "You lost $\(CardGame.betAmount)", color: .red) }
+                        else if CardGame.hasWon { TextView(string: "You won $\(CardGame.betAmount)", color: .blue) }
+                        else if CardGame.hasPushed { TextView(string: "You've pushed!", color: .red) }
+                        HitStandView(model: CardGame)
+                    }
+                } else {
+                    Spacer()
+                    MoneyButtonLayoutView(CardGame, type: "buying")
+                    MoneyButtonLayoutView(CardGame, type: "selling")
+                    Spacer()
+                    Button(action: {
+                        if CardGame.betAmount >= CardGame.minBet {
+                            CardGame.isDealing = true
+                            CardGame.deal()
+                        } else {
+                            CardGame.isBelowMinimumBet = true
+                        }
+                    }, label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundColor(.blue)
+                                .frame(width: 200, height: 100, alignment: .center)
+                            Text("Deal").font(.largeTitle).foregroundColor(.white)
+                        }
+                    } )
+                        .padding()
+                    
+                    if CardGame.isBelowMinimumBet {
+                        TextView(string: "Minimum Bet: $\(CardGame.minBet)", color: .yellow)
+                    }
+                }
+                Spacer()
+                MoneyStatsView(CardGame.playerDollarAmount, CardGame.betAmount)
+            }
         }
         
     }
     
+}
+
+
+struct TextView: View {
+    let string: String
+    let color: Color
     
-    var pushView: some View {
-        VStack {
-            Text("You've Pushed!")
-                .font(.largeTitle)
-        }
-        
+    init(string: String, color: Color) {
+        self.string = string
+        self.color = color
     }
     
     
-    var wonView: some View {
-        VStack {
-            Text("You won \(CardGame.betAmount)!")
-                .font(.largeTitle)
-        }
-        
+    var body: some View {
+        Text(string)
+            .font(.largeTitle)
+            .foregroundColor(color)
     }
+}
+
+
+struct HitStandView: View {
+    var model: CardGameModel
     
+    
+    init(model: CardGameModel) {
+        self.model = model
+    }
     
     var buttonRect: some View {
         RoundedRectangle(cornerRadius: 20)
@@ -54,42 +102,12 @@ struct BlackJackGameView: View {
             .foregroundColor(.blue)
     }
     
-    
-    var gameView: some View {
-        VStack {
-            if CardGame.isDealing {
-                VStack{
-                    pileOfCardsView(CardGame, type: "dealersPile")
-                    Spacer(minLength: 20)
-                    pileOfCardsView(CardGame, type: "playersPile")
-                    if CardGame.hasLost{ lostView }
-                    else if CardGame.hasWon { wonView }
-                    else if CardGame.hasPushed { pushView }
-                    hitStandView
-                }
-            } else {
-                Button(action: {
-                    CardGame.deal()
-                    CardGame.isDealing = true
-                }, label: {Text("Deal").font(.largeTitle)} )
-                    .padding()
-                Text("Your Chips").font(.largeTitle)
-                moneyButtonLayout(CardGame, type: "buying")
-                Text("Dealer Chips").font(.largeTitle)
-                moneyButtonLayout(CardGame, type: "selling")
-            }
-            Spacer()
-            moneyStatsView
-        }
-    }
-    
-    
-    var hitStandView: some View {
+    var body: some View {
         HStack {
             ZStack {
                 buttonRect
                 Button(action: {
-                    CardGame.hit()
+                    model.hit()
                 }, label: {
                     Text("Hit")
                         .foregroundColor(.yellow)
@@ -98,7 +116,7 @@ struct BlackJackGameView: View {
             ZStack {
                 buttonRect
                 Button(action: {
-                    CardGame.stand()
+                    model.stand()
                 }, label: {
                     Text("Stand")
                         .foregroundColor(.yellow)
@@ -106,76 +124,9 @@ struct BlackJackGameView: View {
             }
         }
     }
-    
-    
-    var moneyStatsView: some View {
-        HStack {
-            Text("Your $: \(CardGame.playerDollarAmount)")
-            Spacer()
-            Text("Bet $: \(CardGame.betAmount)")
-        }
-            .font(.largeTitle)
-            .foregroundColor(.yellow)
-            .padding()
-    }
 }
 
 
-struct pileOfCardsView: View {
-    var type: String
-    @ObservedObject var model: CardGameModel
-    
-    init(_ model: CardGameModel, type: String){
-        self.type = type
-        self.model = model
-    }
-    
-    var body: some View {
-        HStack{
-            ForEach(model.pileOfCards[type]!) { card in
-                if card.uiImage != nil {
-                    Image(uiImage: card.uiImage!).frame(width: 100, height: 200, alignment: .center)
-                }
-            }
-        }.padding()
-    }
-}
 
-
-struct moneyButtonLayout: View {
-    var type: String
-    @ObservedObject var model: CardGameModel
-    
-    init(_ model: CardGameModel, type: String){
-        self.type = type
-        self.model = model
-    }
-    
-    let amounts = [1, 5, 10, 50, 100]
-    let index = [ 0, 1, 2, 3, 4 ]
-    let colors: [Color] = [.gray, .red, .indigo, .blue, .pink]
-    
-    var body: some View {
-        HStack {
-            ForEach(index, id: \.self) { index in
-                Button(action: {
-                    if self.type == "buying" {
-                        model.betMoney(amount: amounts[index])
-                    } else {
-                        model.takeBackMoney(amount: amounts[index])
-                    }
-                    
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                                    .foregroundColor(colors[index])
-                                    .frame(width: 50, height: 50, alignment: .center)
-                        Text(String(amounts[index])).foregroundColor(.yellow)
-                    }
-                })
-            }
-        }
-    }
-}
 
 

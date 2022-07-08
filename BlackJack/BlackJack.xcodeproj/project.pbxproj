@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AD2733982870C68C00825C6D /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2733972870C68C00825C6D /* MainMenuView.swift */; };
+		AD66413028787C3C005D1125 /* MoneyViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD66412F28787C3C005D1125 /* MoneyViews.swift */; };
+		AD66413228787CB4005D1125 /* PileOfCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD66413128787CB4005D1125 /* PileOfCardsView.swift */; };
 		ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD60286DD710006FED1A /* BlackJackApp.swift */; };
 		ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */; };
 		ADD1CD65286DD711006FED1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD64286DD711006FED1A /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		AD2733972870C68C00825C6D /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		AD66412F28787C3C005D1125 /* MoneyViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyViews.swift; sourceTree = "<group>"; };
+		AD66413128787CB4005D1125 /* PileOfCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PileOfCardsView.swift; sourceTree = "<group>"; };
 		ADD1CD5D286DD710006FED1A /* BlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD1CD60286DD710006FED1A /* BlackJackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackApp.swift; sourceTree = "<group>"; };
 		ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackGameView.swift; sourceTree = "<group>"; };
@@ -45,6 +49,8 @@
 			children = (
 				AD2733972870C68C00825C6D /* MainMenuView.swift */,
 				ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */,
+				AD66412F28787C3C005D1125 /* MoneyViews.swift */,
+				AD66413128787CB4005D1125 /* PileOfCardsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -173,12 +179,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD66413028787C3C005D1125 /* MoneyViews.swift in Sources */,
 				AD2733982870C68C00825C6D /* MainMenuView.swift in Sources */,
 				ADD1CD71286DD7D0006FED1A /* APIStructures.swift in Sources */,
 				ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */,
 				ADD1CD73286DD7EA006FED1A /* CardGameModel.swift in Sources */,
 				ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */,
 				ADD1CD6F286DD7AF006FED1A /* APIDataDownloader.swift in Sources */,
+				AD66413228787CB4005D1125 /* PileOfCardsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,18 +312,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BlackJack/Preview Content\"";
 				DEVELOPMENT_TEAM = 59Z2BYR2P9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMainNibFile = Main;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,18 +344,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BlackJack/Preview Content\"";
 				DEVELOPMENT_TEAM = 59Z2BYR2P9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMainNibFile = Main;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
