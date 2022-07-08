@@ -26,18 +26,18 @@ struct BlackJackGameView: View {
                 if CardGame.isDealing {
                     VStack{
                         PileOfCardsView(CardGame, type: "dealersPile")
-                        Spacer(minLength: 20)
+                        //Spacer(minLength: 20)
                         PileOfCardsView(CardGame, type: "playersPile")
                         if CardGame.hasLost{ TextView(string: "You lost $\(CardGame.betAmount)", color: .red) }
                         else if CardGame.hasWon { TextView(string: "You won $\(CardGame.betAmount)", color: .blue) }
                         else if CardGame.hasPushed { TextView(string: "You've pushed!", color: .red) }
-                        HitStandView(model: CardGame)
+                        else { HitStandView(model: CardGame) }
                     }
                 } else {
-                    Spacer()
+                    //Spacer()
                     MoneyButtonLayoutView(CardGame, type: "buying")
                     MoneyButtonLayoutView(CardGame, type: "selling")
-                    Spacer()
+                    Spacer(minLength: 150)
                     Button(action: {
                         if CardGame.betAmount >= CardGame.minBet {
                             CardGame.isDealing = true
@@ -59,6 +59,7 @@ struct BlackJackGameView: View {
                         TextView(string: "Minimum Bet: $\(CardGame.minBet)", color: .yellow)
                     }
                 }
+                
                 Spacer()
                 MoneyStatsView(CardGame.playerDollarAmount, CardGame.betAmount)
             }
@@ -87,44 +88,7 @@ struct TextView: View {
 }
 
 
-struct HitStandView: View {
-    var model: CardGameModel
-    
-    
-    init(model: CardGameModel) {
-        self.model = model
-    }
-    
-    var buttonRect: some View {
-        RoundedRectangle(cornerRadius: 20)
-            .padding()
-            .frame(width: 150, height: 100, alignment: .center)
-            .foregroundColor(.blue)
-    }
-    
-    var body: some View {
-        HStack {
-            ZStack {
-                buttonRect
-                Button(action: {
-                    model.hit()
-                }, label: {
-                    Text("Hit")
-                        .foregroundColor(.yellow)
-                }).font(.largeTitle)
-            }
-            ZStack {
-                buttonRect
-                Button(action: {
-                    model.stand()
-                }, label: {
-                    Text("Stand")
-                        .foregroundColor(.yellow)
-                }).font(.largeTitle)
-            }
-        }
-    }
-}
+
 
 
 
