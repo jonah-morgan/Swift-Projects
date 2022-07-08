@@ -15,7 +15,6 @@ class AppState: ObservableObject {
 @main
 struct BlackJackApp: App {
     @ObservedObject var viewController = AppState()
-    var dollarAmount = 0
     
     var body: some Scene {
         WindowGroup {

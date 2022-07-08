@@ -11,6 +11,7 @@
 		AD66413028787C3C005D1125 /* MoneyViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD66412F28787C3C005D1125 /* MoneyViews.swift */; };
 		AD66413228787CB4005D1125 /* PileOfCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD66413128787CB4005D1125 /* PileOfCardsView.swift */; };
 		AD6641342878A282005D1125 /* HitStandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6641332878A282005D1125 /* HitStandView.swift */; };
+		AD6641362878A499005D1125 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6641352878A499005D1125 /* TextView.swift */; };
 		ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD60286DD710006FED1A /* BlackJackApp.swift */; };
 		ADD1CD63286DD710006FED1A /* BlackJackGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */; };
 		ADD1CD65286DD711006FED1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADD1CD64286DD711006FED1A /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		AD66412F28787C3C005D1125 /* MoneyViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyViews.swift; sourceTree = "<group>"; };
 		AD66413128787CB4005D1125 /* PileOfCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PileOfCardsView.swift; sourceTree = "<group>"; };
 		AD6641332878A282005D1125 /* HitStandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitStandView.swift; sourceTree = "<group>"; };
+		AD6641352878A499005D1125 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		ADD1CD5D286DD710006FED1A /* BlackJack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackJack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD1CD60286DD710006FED1A /* BlackJackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackApp.swift; sourceTree = "<group>"; };
 		ADD1CD62286DD710006FED1A /* BlackJackGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackGameView.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 				AD66412F28787C3C005D1125 /* MoneyViews.swift */,
 				AD66413128787CB4005D1125 /* PileOfCardsView.swift */,
 				AD6641332878A282005D1125 /* HitStandView.swift */,
+				AD6641352878A499005D1125 /* TextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				ADD1CD61286DD710006FED1A /* BlackJackApp.swift in Sources */,
 				ADD1CD6F286DD7AF006FED1A /* APIDataDownloader.swift in Sources */,
 				AD66413228787CB4005D1125 /* PileOfCardsView.swift in Sources */,
+				AD6641362878A499005D1125 /* TextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

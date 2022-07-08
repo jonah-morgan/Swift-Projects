@@ -14,7 +14,7 @@ class APIDataDownloader<T: Codable> {
         self.url = url
     }
 
-    func getData(completionBlock: @escaping (T) -> Void) {
+    func getData(completionHandler: @escaping (T) -> Void) {
 
         let task = URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
             guard let data = data, error == nil else {
@@ -26,7 +26,7 @@ class APIDataDownloader<T: Codable> {
             do {
                 try result = JSONDecoder().decode(T.self, from: data)
                 DispatchQueue.main.async {
-                    completionBlock(result!)
+                    completionHandler(result!)
                 }
                 
             } catch {

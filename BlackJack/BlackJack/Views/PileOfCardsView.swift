@@ -11,6 +11,7 @@ import SwiftUI
 struct PileOfCardsView: View {
     var type: String
     var typeUpdated = ""
+    
     @ObservedObject var model: CardGameModel
     
     init(_ model: CardGameModel, type: String){

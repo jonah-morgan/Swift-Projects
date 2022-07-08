@@ -14,7 +14,7 @@ class CardGameModel: ObservableObject {
         newDeck()
     }
     
-    // Public
+    // Public Variables and Functions
     @Published var pileOfCards: [String:[Card]] = [
         "dealersPile": [],
         "playersPile": []
@@ -81,7 +81,7 @@ class CardGameModel: ObservableObject {
     
     private func newDeck() {
         let downloader = APIDataDownloader<APIDeck>(withUrl: newDeckURL)
-        downloader.getData(completionBlock: { self.deck = $0 } )
+        downloader.getData(completionHandler: { self.deck = $0 } )
     }
     
     
@@ -93,6 +93,7 @@ class CardGameModel: ObservableObject {
     private func downloadImages(to pile: String) {
         for index in 0..<pileOfCards[pile]!.count {
             let downloader = APIImageDownloader(withUrl: pileOfCards[pile]![index].image)
+            
             downloader.getData(completionBlock: { image in
                 DispatchQueue.main.async {
                     let newImage = self.resizeImage(image: image, targetSize: CGSize(width: 150, height: 150))
@@ -106,6 +107,7 @@ class CardGameModel: ObservableObject {
     
     private func drawCards(to thisPile: String, amount: Int) {
         if self.deck!.remaining < amount { self.newDeck() }
+        
         if amount > maxDrawSize {
             print("not enough cards in deck")
             return
@@ -119,11 +121,11 @@ class CardGameModel: ObservableObject {
         cardURL += String(amount)
         
         let newCardCommunicator = APIDataDownloader<APIDrawnCards>(withUrl: cardURL)
-        newCardCommunicator.getData( completionBlock: { [self] newCards in
-            
+        
+        newCardCommunicator.getData( completionHandler: { [self] newCards in
+            // After downloading card data. Update the card array for this pile.
             for card in newCards.cards {
                 let id: Int?
-                print(card.image)
                 if cards!.count == 0 { id = 0 } else { id = cards!.count }
                 cards!.append(self.convertToCard(from: card, with: id!))
                 self.updateValue(for: thisPile, with: card)
@@ -133,33 +135,25 @@ class CardGameModel: ObservableObject {
             DispatchQueue.main.async {
                 self.pileOfCards[thisPile]! = cards!
                 self.checkIfWon()
-                print(self.hasWon)
-                print(self.hasLost)
                 self.downloadImages(to: thisPile)
                 
                 if self.hasLost {
                     self.resetGame()
-                }
-                
-                else if self.hasWon {
+                } else if self.hasWon {
                     self.playerDollarAmount += 2 * self.betAmount
                     self.resetGame()
                 } else if self.hasPushed {
                     self.playerDollarAmount += self.betAmount
                     self.resetGame()
-                }
-                
-                else if self.isStanding{
+                } else if self.isStanding{
                     if self.pileValues["dealersPile"]![0] <= 17{
                         DispatchQueue.global(qos: .background).async {
                             Thread.sleep(forTimeInterval: 1.0)
+                            // Recursive call if the player pressed the 'Stand' Button
                             self.drawCards(to: "dealersPile", amount: 1)
                         }
-                        
                     }
-                }
-                
-                else if self.pileValues[thisPile]![0] == 21 ||
+                } else if self.pileValues[thisPile]![0] == 21 ||
                             self.pileValues[thisPile]![1] == 21 {
                     self.stand()
                 }
@@ -184,6 +178,7 @@ class CardGameModel: ObservableObject {
             pileValues[pile]![1] += Int(card.value)!
         }
         
+        // Special cases for aces.
         if pileValues[pile]![0] > 11 && hasAce(in: pile) {
             var aceCount = 0
             for card in pileOfCards[pile]! {
@@ -228,7 +223,6 @@ class CardGameModel: ObservableObject {
                 self.isBelowMinimumBet = false
             }
         }
-        print("everythings reset")
     }
     
     
@@ -239,10 +233,6 @@ class CardGameModel: ObservableObject {
         let maxPValue = max( pVals[0], pVals[1] )
         let maxDValue = max( dVals[0], dVals[1] )
         
-        print("pVals = \(pVals)\n")
-        print("dVals = \(dVals)\n")
-        print("maxP = \(maxPValue)\n")
-        print("maxD = \(maxPValue)\n\n\n")
         // player busted
         if pVals[0] > 21 {
             self.hasLost = true
@@ -260,18 +250,12 @@ class CardGameModel: ObservableObject {
                     maxDValue < maxPValue {
             self.hasWon = true
         }
-        
+        // if the player and the dealer push
         else if self.isStanding && dVals[0] > 17 &&
                     maxPValue == maxDValue {
             self.hasPushed = true
         }
-        
-        print(self.hasWon)
-        print(self.hasLost)
     }
-    
-    
-    private func printDeck() { if deck != nil { deck?.printInfo() } else { print("No Deck Information") } }
     
     
     private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {

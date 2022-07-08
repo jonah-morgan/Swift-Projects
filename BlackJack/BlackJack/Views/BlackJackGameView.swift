@@ -26,15 +26,15 @@ struct BlackJackGameView: View {
                 if CardGame.isDealing {
                     VStack{
                         PileOfCardsView(CardGame, type: "dealersPile")
-                        //Spacer(minLength: 20)
+                        Spacer(minLength: 20)
                         PileOfCardsView(CardGame, type: "playersPile")
                         if CardGame.hasLost{ TextView(string: "You lost $\(CardGame.betAmount)", color: .red) }
                         else if CardGame.hasWon { TextView(string: "You won $\(CardGame.betAmount)", color: .blue) }
                         else if CardGame.hasPushed { TextView(string: "You've pushed!", color: .red) }
                         else { HitStandView(model: CardGame) }
                     }
-                } else {
-                    //Spacer()
+                } else if !CardGame.isDealing {
+                    Spacer()
                     MoneyButtonLayoutView(CardGame, type: "buying")
                     MoneyButtonLayoutView(CardGame, type: "selling")
                     Spacer(minLength: 150)
@@ -70,22 +70,7 @@ struct BlackJackGameView: View {
 }
 
 
-struct TextView: View {
-    let string: String
-    let color: Color
-    
-    init(string: String, color: Color) {
-        self.string = string
-        self.color = color
-    }
-    
-    
-    var body: some View {
-        Text(string)
-            .font(.largeTitle)
-            .foregroundColor(color)
-    }
-}
+
 
 
 
