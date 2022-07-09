@@ -68,7 +68,7 @@ class CardGameModel: ObservableObject {
     }
     
     
-    // Private
+    // Private Variables and Functions
     private let drawCardURL = "https://deckofcardsapi.com/api/deck/<<deck_id>>/draw/?count="
     private let newDeckURL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
     private var deck: APIDeck?
@@ -96,7 +96,7 @@ class CardGameModel: ObservableObject {
             
             downloader.getData(completionBlock: { image in
                 DispatchQueue.main.async {
-                    let newImage = self.resizeImage(image: image, targetSize: CGSize(width: 150, height: 150))
+                    let newImage = self.resizeImage(image: image, targetSize: CGSize(width: 175, height: 175))
                     self.pileOfCards[pile]![index].uiImage = newImage
                 }
                 
@@ -133,19 +133,20 @@ class CardGameModel: ObservableObject {
             }
             
             DispatchQueue.main.async {
+                self.fixValuesWithAces(for: thisPile)
                 self.pileOfCards[thisPile]! = cards!
                 self.checkIfWon()
                 self.downloadImages(to: thisPile)
                 
                 if self.hasLost {
-                    self.resetGame()
+                    self.resetGame { }
                 } else if self.hasWon {
-                    self.playerDollarAmount += 2 * self.betAmount
-                    self.resetGame()
+                    self.resetGame { self.playerDollarAmount += 2 * self.betAmount }
                 } else if self.hasPushed {
-                    self.playerDollarAmount += self.betAmount
-                    self.resetGame()
-                } else if self.isStanding{
+                    self.resetGame { self.playerDollarAmount += self.betAmount }
+                }
+                
+                else if self.isStanding{
                     if self.pileValues["dealersPile"]![0] <= 17{
                         DispatchQueue.global(qos: .background).async {
                             Thread.sleep(forTimeInterval: 1.0)
@@ -163,6 +164,17 @@ class CardGameModel: ObservableObject {
     }
     
     
+    private func fixValuesWithAces(for pile: String) {
+        if pileValues[pile]![1] > 21 {
+            var aceCount = 0
+            for card in pileOfCards[pile]! {
+                if card.value == "ACE" { aceCount += 1 }
+            }
+            if aceCount > 0 { pileValues[pile]![1] -= 10 }
+        }
+    }
+    
+    
     private func updateValue(for pile: String, with card: APICard) {
         switch card.value {
         case "ACE":
@@ -177,41 +189,17 @@ class CardGameModel: ObservableObject {
             pileValues[pile]![0] += Int(card.value)!
             pileValues[pile]![1] += Int(card.value)!
         }
-        
-        // Special cases for aces.
-        if pileValues[pile]![0] > 11 && hasAce(in: pile) {
-            var aceCount = 0
-            for card in pileOfCards[pile]! {
-                if card.value == "ACE" {
-                    aceCount += 1
-                    if aceCount > 1 || pileValues[pile]![0] > 11 {
-                        pileValues[pile]![1] -= 10
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    private func hasAce(in pile: String) -> Bool {
-        for card in pileOfCards[pile]! {
-            if card.value == "ACE" { return true }
-        }
-        return false
-    }
-    
-    
-    private func emptyValues() {
-        self.pileValues["playersPile"] = [0, 0]
-        self.pileValues["dealersPile"] = [0, 0]
     }
     
         
-    private func resetGame() {
+    private func resetGame(completionHandler: @escaping () -> Void ) {
+        completionHandler()
+        
         DispatchQueue.global(qos: .background).async {
             Thread.sleep(forTimeInterval: 2.0)
             DispatchQueue.main.async {
-                self.emptyValues()
+                self.pileValues["playersPile"] = [0, 0]
+                self.pileValues["dealersPile"] = [0, 0]
                 self.pileOfCards["playersPile"]! = []
                 self.pileOfCards["dealersPile"]! = []
                 self.betAmount = 0
@@ -279,5 +267,19 @@ class CardGameModel: ObservableObject {
         UIGraphicsEndImageContext()
         
         return newImage
+    }
+    
+    
+    private func printValues() {
+        print("Dealers Values:")
+        for value in pileValues["dealersPile"]! {
+            print(value)
+        }
+        print("\n")
+        print("Players Values:")
+        for value in pileValues["playersPile"]! {
+            print("\(value)")
+        }
+        print("\n")
     }
 }

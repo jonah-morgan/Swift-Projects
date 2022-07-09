@@ -31,7 +31,7 @@ struct PileOfCardsView: View {
             HStack{
                 ForEach(model.pileOfCards[type]!) { card in
                     if card.uiImage != nil {
-                        Image(uiImage: card.uiImage!).frame(width: 50, height: 200, alignment: .top)
+                        Image(uiImage: card.uiImage!).frame(width: 25, height: 150, alignment: .top)
                     }
                 }
             }

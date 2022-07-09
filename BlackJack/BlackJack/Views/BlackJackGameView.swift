@@ -26,8 +26,9 @@ struct BlackJackGameView: View {
                 if CardGame.isDealing {
                     VStack{
                         PileOfCardsView(CardGame, type: "dealersPile")
-                        Spacer(minLength: 20)
+                        Spacer(minLength: 30)
                         PileOfCardsView(CardGame, type: "playersPile")
+                        Spacer(minLength: 50)
                         if CardGame.hasLost{ TextView(string: "You lost $\(CardGame.betAmount)", color: .red) }
                         else if CardGame.hasWon { TextView(string: "You won $\(CardGame.betAmount)", color: .blue) }
                         else if CardGame.hasPushed { TextView(string: "You've pushed!", color: .red) }
