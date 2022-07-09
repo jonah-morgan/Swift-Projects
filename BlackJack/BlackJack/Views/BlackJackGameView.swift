@@ -70,7 +70,7 @@ struct BlackJackGameView: View {
                         TextView(string: "Minimum Bet: $\(CardGame.minBet)", color: .yellow)
                     }
                 }
-                
+                Spacer()
                 MoneyStatsView(CardGame.playerDollarAmount, CardGame.betAmount)
                     
             }

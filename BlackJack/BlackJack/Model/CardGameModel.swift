@@ -154,6 +154,9 @@ class CardGameModel: ObservableObject {
                 self.downloadImages(to: thisPile)
                 self.printValues()
                 if self.hasLost {
+                    if self.playerDollarAmount <= 5 {
+                        self.playerDollarAmount += 5
+                    }
                     self.hasContinued = false
                 } else if self.hasWon {
                     self.playerDollarAmount += 2 * self.betAmount
@@ -239,27 +242,20 @@ class CardGameModel: ObservableObject {
         let maxPValue = max( pVals[0], pVals[1] )
         let maxDValue = max( dVals[0], dVals[1] )
         
-        // player busted
         if pVals[0] > 21 {
             self.hasLost = true
-        }
-        // dealer busted
-        else if dVals[0] > 21 {
+        } else if dVals[0] > 21 {
             self.hasWon = true
-        }
-        // both dealers values are higher
-        else if self.isStanding && maxDValue > maxPValue {
-            self.hasLost = true
-        }
-        // dealer is above 17 and is still lower than the player
-        else if self.isStanding && dVals[0] > 17 &&
-                    maxDValue < maxPValue {
-            self.hasWon = true
-        }
-        // if the player and the dealer push
-        else if self.isStanding && dVals[0] > 17 &&
-                    maxPValue == maxDValue {
-            self.hasPushed = true
+        } else if self.isStanding {
+            if maxDValue > maxPValue {
+                self.hasLost = true
+            } else if dVals[0] > 17 && maxDValue < maxPValue {
+                self.hasWon = true
+            } else if dVals[0] > 17 && maxDValue == maxPValue {
+                self.hasPushed = true
+            } else if maxPValue == 21 && maxDValue == 21 {
+                self.hasPushed = true
+            }
         }
     }
     
