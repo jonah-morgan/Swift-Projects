@@ -72,7 +72,7 @@ struct BlackJackGameView: View {
                 }
                 
                 MoneyStatsView(CardGame.playerDollarAmount, CardGame.betAmount)
-                    .padding(.top, 25.0)
+                    
             }
         }
         

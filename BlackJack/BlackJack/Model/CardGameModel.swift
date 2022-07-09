@@ -123,14 +123,12 @@ class CardGameModel: ObservableObject {
     
     
     private func drawCards(to thisPile: String, amount: Int) {
-        if self.deck!.remaining < amount { self.newDeck() }
+        if self.deck!.remaining < 10 { self.newDeck() }
         
         if amount > maxDrawSize {
             print("not enough cards in deck")
             return
         }
-        
-        while self.deck!.remaining < amount {}
         
         var cards = pileOfCards[thisPile]
         var cardURL = drawCardURL
