@@ -33,6 +33,16 @@ struct BlackJackGameView: View {
                         else if CardGame.hasWon { TextView(string: "You won $\(CardGame.betAmount)", color: .blue) }
                         else if CardGame.hasPushed { TextView(string: "You've pushed!", color: .red) }
                         else { HitStandView(model: CardGame) }
+                        if !CardGame.hasContinued {
+                            Button(action: {CardGame.resetGame()}, label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 20).frame(width: 100, height: 50, alignment: .center)
+                                    Text("Continue").foregroundColor(.white)
+                                }
+                                
+                                
+                            } )
+                        }
                     }
                 } else if !CardGame.isDealing {
                     Spacer()
@@ -61,8 +71,8 @@ struct BlackJackGameView: View {
                     }
                 }
                 
-                Spacer()
                 MoneyStatsView(CardGame.playerDollarAmount, CardGame.betAmount)
+                    .padding(.top, 25.0)
             }
         }
         

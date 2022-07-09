@@ -20,7 +20,7 @@ struct TextView: View {
     
     var body: some View {
         Text(string)
-            .font(.largeTitle)
+            .font(.headline)
             .foregroundColor(color)
     }
 }

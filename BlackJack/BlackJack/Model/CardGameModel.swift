@@ -27,6 +27,7 @@ class CardGameModel: ObservableObject {
     @Published var isStanding = false
     @Published var hasPushed = false
     @Published var isBelowMinimumBet = false
+    @Published var hasContinued = true
     let minBet = 5
     
     
@@ -65,6 +66,22 @@ class CardGameModel: ObservableObject {
             playerDollarAmount += amount
             betAmount -= amount
         }
+    }
+    
+    
+    func resetGame() {
+        self.pileValues["playersPile"] = [0, 0]
+        self.pileValues["dealersPile"] = [0, 0]
+        self.pileOfCards["playersPile"]! = []
+        self.pileOfCards["dealersPile"]! = []
+        self.betAmount = 0
+        self.hasWon = false
+        self.hasLost = false
+        self.hasPushed = false
+        self.isDealing = false
+        self.isStanding = false
+        self.isBelowMinimumBet = false
+        self.hasContinued = true
     }
     
     
@@ -133,17 +150,19 @@ class CardGameModel: ObservableObject {
             }
             
             DispatchQueue.main.async {
-                self.fixValuesWithAces(for: thisPile)
                 self.pileOfCards[thisPile]! = cards!
+                self.fixValuesWithAces(for: thisPile)
                 self.checkIfWon()
                 self.downloadImages(to: thisPile)
-                
+                self.printValues()
                 if self.hasLost {
-                    self.resetGame { }
+                    self.hasContinued = false
                 } else if self.hasWon {
-                    self.resetGame { self.playerDollarAmount += 2 * self.betAmount }
+                    self.playerDollarAmount += 2 * self.betAmount
+                    self.hasContinued = false
                 } else if self.hasPushed {
-                    self.resetGame { self.playerDollarAmount += self.betAmount }
+                    self.playerDollarAmount += self.betAmount
+                    self.hasContinued = false
                 }
                 
                 else if self.isStanding{
@@ -194,7 +213,6 @@ class CardGameModel: ObservableObject {
         
     private func resetGame(completionHandler: @escaping () -> Void ) {
         completionHandler()
-        
         DispatchQueue.global(qos: .background).async {
             Thread.sleep(forTimeInterval: 2.0)
             DispatchQueue.main.async {
@@ -212,6 +230,8 @@ class CardGameModel: ObservableObject {
             }
         }
     }
+    
+    
     
     
     private func checkIfWon() {

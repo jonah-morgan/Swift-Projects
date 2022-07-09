@@ -12,6 +12,7 @@ struct MainMenuView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             Text("Black Jack")
                 .font(.largeTitle)
                 .foregroundColor(.blue)
@@ -26,6 +27,8 @@ struct MainMenuView: View {
                         .foregroundColor(.yellow)
                 })
             }
+            Spacer()
+            Text("* Requires internet to play")
             
         }
     }
